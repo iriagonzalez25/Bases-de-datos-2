@@ -6,14 +6,14 @@
 
 SQL es un lenguaje declarativo (declara la intención) para gestionar bases de datos relacionales, pero aunque tenga seis sublenguajes, SQL es solamente uno. Los sublenguajes son los siguientes:
 
-|**Sublenguaje**                                                                |**Instrucciones del sublenguaje**      |
-|-------------------------------------------------------------------------------|---------------------------------------|
-|DQL (Data Query Language) - Opera sobre los datos                              |`SELECT`                               |
-|DML (Data Manipulation Language - Opera sobre los datos                        |``INSERT``, ``UPDATE``, ``DELETE``     |
-|DDL (Data Definition Language) - Opera sobre los objetos de la base de datos   |`CREATE`, `ALTER`, `DROP`              |
-|TCL (Transaction Control Language)                                             |`COMMIT`, `ROLLBACK`                   |
-|DCL (Data Control Language)                                                    |`GRANT`, `REVOKE`                      |
-|SCL (Session Control Language)                                                 |`ALTER SESSION`                        |
+|**Sublenguaje**                                                                    |**Instrucciones del sublenguaje**      |
+|-----------------------------------------------------------------------------------|---------------------------------------|
+|**DQL (Data Query Language)** - Opera sobre los datos                              |`SELECT`                               |
+|**DML (Data Manipulation Language)** - Opera sobre los datos                       |``INSERT``, ``UPDATE``, ``DELETE``     |
+|**DDL (Data Definition Language)** - Opera sobre los objetos de la base de datos   |`CREATE`, `ALTER`, `DROP`              |
+|**TCL (Transaction Control Language)**                                             |`COMMIT`, `ROLLBACK`                   |
+|**DCL (Data Control Language)**                                                    |`GRANT`, `REVOKE`                      |
+|**SCL (Session Control Language)**                                                 |`ALTER SESSION`                        |
 
 
 # DDL - DATA DEFINITION LANGUAGE
@@ -69,3 +69,57 @@ Ejemplo (comprobarlo):
 definir el resto
 
 [MATCH FULL | PARTIAL]
+
+
+
+[CONSTRAINT <nomeDaRestriccion>]
+	UNIQUE (<atributos>),
+	
+	
+UNIQUE (PRIMARY KEY) --> restricción de unicidad 
+
+--------> solo vamos a ver 4 tipos de restriccion en CREATE table (esta es la cuarta) 
+
+[CONSTRAINT <nombreDaRestriccon>]
+	CHECK predicado (atributos)
+[[NOT] DEFERRABLE]
+[INITIALLY INMEDIATE|DEFERRABLE] --> esto fuera (hay que elegir entre inmediate y deferrable creo) 
+
+...
+Si es DEFERRABLE, la comporbación de la restricción se puede posponer hasta el final de la transacción.
+
+Comportamiento por defecto - que se haga al momento --> INITIALLY INMEDIATE
+Posponerlo --> INITIALLY DEFERRABLE
+
+Ejemplo:
+	CHECK saldo >= (
+		SELECT saldo
+		FROM empregado
+		WHERE departamento='A');
+
+
+
+
+
+DROP SCHEMA
+[] <nomeDaBase>; 
+	
+DROP SCHEMA
+[IF EXISTS] <nomeDaBD>;
+	
+	
+DROP TABLE
+[IF EXISTS] <nombreDaTaboa>
+[CASCADE | RESTRICT]
+	
+	
+ALTER TABLE:
+	
+	ADD [COLUMN] <atributo> <dominio> .. 
+
+	DROP COLUMN <atributo> [CASCADE | RESTRICT]
+	
+	ADD <restricción> 
+	
+	DROP <restricción>
+
