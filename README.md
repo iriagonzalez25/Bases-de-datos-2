@@ -1,8 +1,8 @@
 # Apuntes SQL 2 - iria gonzález peteiro -
 
-# Índice
+## Índice
 
-# Recordamos
+## Recordamos
 
 SQL es un lenguaje declarativo (declara la intención) para gestionar bases de datos relacionales, pero aunque tenga seis sublenguajes, SQL es solamente uno. Los sublenguajes son los siguientes:
 
@@ -15,12 +15,97 @@ SQL es un lenguaje declarativo (declara la intención) para gestionar bases de d
 |**DCL (Data Control Language)**                                                    |`GRANT`, `REVOKE`                      |
 |**SCL (Session Control Language)**                                                 |`ALTER SESSION`                        |
 
+## A tener en cuenta
 
-# DDL - DATA DEFINITION LANGUAGE
+En VARCHAR2, es mejor poner longitud máxima que sepas que te va a sobrar, no tirar por lo bajo y que después tengas problemas.
+
+Los textos literales se ponen entre comillas. 
+
+NUMBER(8) sería lo mismo que NUMBER(8,0). 
+
+Si borras una tabla, no hay comando para recuperarla. 
+
+
+## DDL - Data Definition Language
+
+DDL es el lenguaje que se encarga de la definición de datos. Crea, modifica y elimina los objetos de la base de datos. 
 
 `CREATE` es un comando o una instrucción usada para crear bases de datos, tablas o usuarios.
 
-Lo de crear usuarios nos recuerda a DCL, que cuenta con ``GRANT`` y ``REVOKE``. 
+El comando para crear una base de datos es `CREATE DATABASE`. Ejemplo: _CREATE DATABASE nombreBD;_ 
+
+### Crear tablas
+
+El comando para crear una tabla es `CREATE TABLE`. 
+
+La sintaxis para **crear una tabla** es la siguiente:
+
+	CREATE TABLE [esquema.] nombreTabla (
+		nombreColumna1 tipoDatos [DEFAULT valor] 
+        	[restricciones]  [, ...]
+	);
+
+Un ejemplo de creación de tabla podría ser el siguiente:
+
+	CREATE TABLE Alumno (
+		id INTEGER PRIMARY KEY,
+		nome NCHAR (50),
+		apelidos NCHAR (200),
+		nacido DATA
+	);
+
+
+Ahora vamos a ver los tipos de datos:
+- Texto:
+	- VARCHAR2(tamañoMaximoTexto)
+	- CHAR(longitudTexto)
+	- NCHAR
+	- NVARCHAR2
+- Números:
+	- NUMBER(numeroDigitos, decimales)
+	- NUMBER(numeroDigitos)
+	- NUMBER(numeroMaximoDigitos) --> para enteros ???????????
+	- NUMBER --> número en coma flotante (?)
+
+etc etc
+
+
+### Borrar tablas
+
+El comando para borrar una tabla es `DROP TABLE`. 
+
+La sintaxis para **borrar una tabla** es la siguiente:
+	
+	DROP TABLE nombreTabla;
+	
+### Modificar tablas
+
+El comando para modificar una tabla es `ALTER TABLE`.
+
+Para **modificar el nombre** de una tabla hay que utilizar `RENAME TO`. La sintaxis es la siguiente:
+
+	ALTER TABLE nombreTabla RENAME TO nuevoNombre;
+
+Para **añadir columnas** a una tabla hay que utilizar `ADD`, la sintaxis es parecida a la de `CREATE TABLE` y es la siguiente:
+
+	ALTER TABLE nombreTabla ADD(nombreColumna tipoDatos [Propiedades])
+	
+En caso de que se quisiera añadir más de una columna, simplemente habría que volver a poner _nombreColumna tipoDatos [Propiedades]_ otra vez dentro de los paréntesis. 
+	
+***** Algunas cosas requieren poner COLUMN después de ADD y de DROP y MODIFY --> mirar si lo nuestro 
+
+Para **borrar columnas** a una tabla hay que utilizar `DROP`siguiendo la sintaxis siguiente:
+
+	ALTER TABLE nombreTabla DROP(columna);
+
+En caso de que se quisiera borrar más de una columna, simplemente habría que poner separadas por comas todas las comunas que se quieran borrar: _(columna, otraColumna, otraColumnaMás)_. 
+
+El borrado de columnas es irreversible. 
+	
+
+
+
+
 
 La creación de una base de datos permite CREATE SCHEMA y CREATW DATABASE. Un ejemplo de creación de bases de datos sería el siguiente:
 _CREATE DATABASE myDB;_
@@ -37,13 +122,7 @@ CREATE (SCHEMA|DATABASE) [IF NOT EXISTS] <nome-da-base> [CHARACTER SET <nome-do-
 
 O de (SCHEMA|DATABASE) permite elixir entre ambos. O if not exists pode ir ou non ir, e entre <> hai que poñer o nome da base de datos. Lo de character set no sé qué es la vd.
 
-	Un ejemplo de creación de una tabla podría ser:
-CREATE TABLE Alumno (
-	id INTEGER PRIMARY KEY,
-	nome NCHAR (50),
-	apelidos NCHAR (200),
-	nacido DATA
-);
+
 
 O de INTEGER e así é o dominio
 Valores para fechas → DATA (data), TIME (hora), TIMESTAMP (data e hora).
