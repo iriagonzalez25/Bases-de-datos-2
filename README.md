@@ -25,6 +25,9 @@ NUMBER(8) sería lo mismo que NUMBER(8,0).
 
 Si borras una tabla, no hay comando para recuperarla. 
 
+En `INSERT INTO`, en algunos casos no es necesario poner las columnas, pero mejor ponerlas siempre para no confundirse. 
+
+El dominio es donde puede tomar valores un atributos.
 
 ## DDL - Data Definition Language
 
@@ -66,7 +69,9 @@ Ahora vamos a ver los tipos de datos:
 	- NUMBER(numeroDigitos)
 	- NUMBER(numeroMaximoDigitos) --> para enteros ???????????
 	- NUMBER --> número en coma flotante (?)
-
+- Fechas:
+        - DATE
+	- DATETIME
 etc etc
 
 
@@ -202,3 +207,41 @@ ALTER TABLE:
 	
 	DROP <restricción>
 
+## DML - Data Manipulation Language
+
+DDL era para el manejo de datos. DML es para el manejo de estructuras. Los tres comandos de este sublenguaje son `INSERT`, `UPDATE` y `DELETE`. 
+
+### Insertar datos
+
+Para **insertar datos** en un tabla hay que usar `INSERT INTO` y `VALUES`, siguiendo la sintaxis:
+
+	INSERT INTO nombreTabla (nombreColumna1, nombreColumna2, ...) VALUES ("valor1", "valor2", ...);
+	
+Otra sintaxis posible sería la siguiente:
+
+	INSERT INTO nombreTabla (nombreColumna1, nombreColumna2, ...) SELECT...;
+
+Si usamos `SELECT` hay ciertas restricciones:
+- Tiene que tener el mismo número de columnas que la tabla en cuestión (es decir, si pone _INSERT INTO tabla (columna1, columna2)_, el _SELECT_ sólo podrá seleccionar dos columnas.
+- Los atributos no tienen que llamarse igual.
+- Mismos dominimos (tipo de datos) que los de la tabla.
+
+### Modificar datos
+
+Para **modificar los datos** de una tabla, hay que usar `UPDATE` y `SET`, con la sintaxis siguiente:
+
+	UPDATE nombreTabla SET atributo1 = valor1, atributo2 = valor2, ... WHERE predicado;
+
+La parte de _WHERE ..._ es opcional. 
+
+Ejemplo: _UPDATE world SET name='España', continent='Africa' WHERE name='Spain';_
+
+### Eliminar datos
+
+Para **eliminar datos** de una tabla hay que utilizar `DELETE FROM`, y la sintaxis que debemos usar es:
+
+	DELETE FROM nombreTabla WHERE predicado;
+	
+En este caso, la parte de _WHERE_ también es opcional. 
+
+Ejemplo: _DELETE FROM world WHERE population>100000000;_
