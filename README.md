@@ -29,6 +29,38 @@ En `INSERT INTO`, en algunos casos no es necesario poner las columnas, pero mejo
 
 El dominio es donde puede tomar valores un atributos.
 
+Tipos de datos: Además de INTEGER, tenemos BIGINT y SMALLINT, pero vamos a utilizar unicamente INTEGER. FLOAT es para MySQL y REAL es para Postgres; nosotros vamos a utilizar FLOAT. No es recomendable utilizar TEXT por defecto por una cuestión de rendimiento. Creo que el time puede llevar detrás la zona horaria. El boolean considera 0 como falso, true como 1 y hay varias cosas más. 
+
+## Tipos de datos
+
+Aquí tenemos los tipos de datos que vamos a utilizar. 
+
+|**Numéricos**    |**Texto**      |**Fechas**     |**Otros**       |
+|-----------------|---------------|---------------|----------------|
+|``INTEGER``      |``CHAR(n)``    |``DATE``       |``BOOLEAN``     |
+|``DECIMAL``      |``VARCHAR(n)`` |``TIME``       |``MONEY``       |
+|``REAL``         |``TEXT``       |``DATETIME``   |``INET`` ``CIDR`` ``JSON`` ``UUID``|
+
+
+|``INTEGER``|Para números enteros. También hay BIGINT y SMALLINT|
+
+- INTEGER --> para número enteros. También hay BIGINT y SMALLINT.
+- DECIMAL y REAL, es lo mismo pero DECIMAL es preciso y REAL es no preciso. 
+- CHAR --> para textos de lonigtud limitada fija.
+- VARCHAR --> para textos de longitud limitada variable.
+- TEXT --> para textos de longitud ilimitada variable.
+- DATE --> formato: AAAA-MM-DD.
+- TIME --> formato: hh:mm:ss...
+- DATETIME --> formato: AAAA-MM-DD hh:mm:ss.
+- BOOLEAN --> posibles valores, true o 1, false o 0, NULL. 
+- MONEY --> para trabajar con dinero. 
+- **El resto no tengo ni idea la vd** --> buscarlo nel internete
+Ejemplos: 
+- Texto de longitud 10 --> CHAR(10). 
+- VARCHAR(20) --> texto de como máximo longitud 20. 
+
+rollo para asegurarse de que un dni tiene longitud 9 --> CONSTRAINT ck_dni CHECK LENGHT(dni)=9; 
+
 ## DDL - Data Definition Language
 
 DDL es el lenguaje que se encarga de la definición de datos. Crea, modifica y elimina los objetos de la base de datos. 
@@ -39,9 +71,7 @@ El comando para crear una base de datos es `CREATE DATABASE`. Ejemplo: _CREATE D
 
 ### Crear tablas
 
-El comando para crear una tabla es `CREATE TABLE`. 
-
-La sintaxis para **crear una tabla** es la siguiente:
+El comando para **crear una tabla** es `CREATE TABLE`, y la sintaxis para hacerlo es la siguiente:
 
 	CREATE TABLE [esquema.] nombreTabla (
 		nombreColumna1 tipoDatos [DEFAULT valor] 
@@ -56,24 +86,6 @@ Un ejemplo de creación de tabla podría ser el siguiente:
 		apelidos NCHAR (200),
 		nacido DATA
 	);
-
-
-Ahora vamos a ver los tipos de datos:
-- Texto:
-	- VARCHAR2(tamañoMaximoTexto)
-	- CHAR(longitudTexto)
-	- NCHAR
-	- NVARCHAR2
-- Números:
-	- NUMBER(numeroDigitos, decimales)
-	- NUMBER(numeroDigitos)
-	- NUMBER(numeroMaximoDigitos) --> para enteros ???????????
-	- NUMBER --> número en coma flotante (?)
-- Fechas:
-        - DATE
-	- DATETIME
-etc etc
-
 
 ### Borrar tablas
 
