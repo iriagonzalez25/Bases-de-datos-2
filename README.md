@@ -56,7 +56,7 @@ Aquí tenemos los tipos de datos que vamos a utilizar.
 
 Ejemplos: 
 - Texto de longitud 10 --> CHAR(10). 
-- VARCHAR(20) --> texto de como máximo longitud 20. 
+- Texto de como máximo longitud 20 --> VARCHAR(20).
 
 rollo para asegurarse de que un dni tiene longitud 9 --> CONSTRAINT ck_dni CHECK LENGHT(dni)=9; 
 
@@ -66,7 +66,7 @@ DDL es el lenguaje que se encarga de la definición de datos. Crea, modifica y e
 
 `CREATE` es un comando o una instrucción usada para crear bases de datos, tablas o usuarios.
 
-El comando para crear una base de datos es `CREATE DATABASE`. Ejemplo: _CREATE DATABASE nombreBD;_ 
+El comando para crear una base de datos es `CREATE DATABASE`. Ejemplo: ``CREATE DATABASE nombreBD;`` 
 
 ### Crear tablas
 
@@ -299,7 +299,7 @@ Para **modificar los datos** de una tabla, hay que usar `UPDATE` y `SET`, con la
 
 La parte de _WHERE ..._ es opcional. 
 
-Ejemplo: _UPDATE world SET name='España', continent='Africa' WHERE name='Spain';_
+Ejemplo: ``UPDATE world SET name='España', continent='Africa' WHERE name='Spain';``
 
 ### Eliminar datos
 
@@ -309,4 +309,4 @@ Para **eliminar datos** de una tabla hay que utilizar `DELETE FROM`, y la sintax
 	
 En este caso, la parte de _WHERE_ también es opcional. 
 
-Ejemplo: _DELETE FROM world WHERE population>100000000;_
+Ejemplo: ``DELETE FROM world WHERE population>100000000;``
