@@ -35,14 +35,12 @@ Tipos de datos: Además de INTEGER, tenemos BIGINT y SMALLINT, pero vamos a util
 
 Aquí tenemos los tipos de datos que vamos a utilizar. 
 
-|**Numéricos**    |**Texto**      |**Fechas**     |**Otros**       |
-|-----------------|---------------|---------------|----------------|
-|``INTEGER``      |``CHAR(n)``    |``DATE``       |``BOOLEAN``     |
-|``DECIMAL``      |``VARCHAR(n)`` |``TIME``       |``MONEY``       |
-|``REAL``         |``TEXT``       |``DATETIME``   |``INET`` ``CIDR`` ``JSON`` ``UUID``|
+|**Numéricos**    |**Texto**      |**Fechas**     |**Otros**       |**Otros**|
+|-----------------|---------------|---------------|----------------|---------|
+|``INTEGER``      |``CHAR(n)``    |``DATE``       |``BOOLEAN``     |``CIDR`` |
+|``DECIMAL``      |``VARCHAR(n)`` |``TIME``       |``MONEY``       |``JSON`` |
+|``REAL``         |``TEXT``       |``DATETIME``   |``INET``        |``UUID`` |
 
-
-|``INTEGER``|Para números enteros. También hay BIGINT y SMALLINT|
 
 - INTEGER --> para número enteros. También hay BIGINT y SMALLINT.
 - DECIMAL y REAL, es lo mismo pero DECIMAL es preciso y REAL es no preciso. 
@@ -55,6 +53,7 @@ Aquí tenemos los tipos de datos que vamos a utilizar.
 - BOOLEAN --> posibles valores, true o 1, false o 0, NULL. 
 - MONEY --> para trabajar con dinero. 
 - **El resto no tengo ni idea la vd** --> buscarlo nel internete
+
 Ejemplos: 
 - Texto de longitud 10 --> CHAR(10). 
 - VARCHAR(20) --> texto de como máximo longitud 20. 
@@ -122,11 +121,65 @@ El borrado de columnas es irreversible.
 
 
 
+### Restricciones
+
+Pueden colocarse restricciones para limitar el tipo de dato que se ingresa en una tabla. Esto se hace con ``CONSTRAINT``. Estas restricciones pueden especificarse al crear la tabla, o modificándola. 
+
+Los tipos comunes de restricciones son ``NOT NULL``, ``UNIQUE``, ``CHECK``, ``PRIMARY KEY`` y ``FOREIGN KEY. 
+
+#### NOT NULL
+Por defecto, una columna puede ser NULL, así que ponemos NOT NULL si no queremos que lo sea
+
+	CREATE TABLE ejemplo (
+		id CHAR(3) NOT NULL, 
+		nombre VARCHAR(10) NOT NULL,
+		apellido VARCHAR(20)
+	);
+
+#### UNIQUE
+Esta restricción sirve para que todos los valores de una columna sean distintos. 
+
+	CREATE TABLE ejemplo (
+		id CHAR(3) UNIQUE, 
+		nombre VARCHAR(10),
+		apellido VARCHAR(20)
+	);
+	
+Una columna que se especifica como clave primaria también puede ser única, pero una columna que es única no tiene por qué ser clave primaria.
+
+#### CHECK
+Esta restricción sirve para que todos los valores en una columna cumplan ciertas condiciones.
+
+	CREATE TABLE ejemplo (
+		id INTEGER CHECK(id>0), 
+		nombre VARCHAR(10),
+		apellido VARCHAR(20)
+	);
+	
+#### PRIMARY KEY	
+La clave primaria se utiliza para identificar en forma única cada línea en la tabla y puede consistir en uno o más campos en una tabla (en este caso se los denomina claves compuestas). 
+
+	CREATE TABLE ejemplo (
+		id INTEGER PRIMARY KEY
+		nombre VARCHAR(10),
+		apellido VARCHAR(20)
+	);
+
+En caso de que queramos añadir esta restricción una vez creada la tabla, haríamos lo siguiente:
+
+	ALTER TABLE ejemplo ADD PRIMARY KEY (id);
+
+#### FOREIGN KEY
+La clave foránea sirve para señalar la clave primaria de otra tabla para asegurar la integridad referencial de los datos. 
+
+
+
 
 
 La creación de una base de datos permite CREATE SCHEMA y CREATW DATABASE. Un ejemplo de creación de bases de datos sería el siguiente:
 _CREATE DATABASE myDB;_
 _CREATE SCHEMA myOtherDB;_
+
 
 
 
