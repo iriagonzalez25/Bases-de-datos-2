@@ -27,9 +27,11 @@ Si borras una tabla, no hay comando para recuperarla.
 
 En `INSERT INTO`, en algunos casos no es necesario poner las columnas, pero mejor ponerlas siempre para no confundirse. 
 
-El dominio es donde puede tomar valores un atributos.
+El dominio es donde puede tomar valores un atributos (INTEGER por ejemplo). 
 
 Tipos de datos: Además de INTEGER, tenemos BIGINT y SMALLINT, pero vamos a utilizar unicamente INTEGER. FLOAT es para MySQL y REAL es para Postgres; nosotros vamos a utilizar FLOAT. No es recomendable utilizar TEXT por defecto por una cuestión de rendimiento. Creo que el time puede llevar detrás la zona horaria. El boolean considera 0 como falso, true como 1 y hay varias cosas más. 
+
+**Fijarse que aquí es NOT NULL, no IS NOT NULL. 
 
 ## Tipos de datos
 
@@ -123,9 +125,11 @@ El borrado de columnas es irreversible.
 
 ### Restricciones
 
-Pueden colocarse restricciones para limitar el tipo de dato que se ingresa en una tabla. Esto se hace con ``CONSTRAINT``. Estas restricciones pueden especificarse al crear la tabla, o modificándola. 
+Pueden colocarse restricciones para limitar el tipo de dato que se ingresa en una tabla. Esto se hace con ``CONSTRAINT``, pero no es necesario poner ``CONSTRAINT``(lo veremos a continuación a través de ejemplos). Estas restricciones pueden especificarse al crear la tabla, o modificándola. 
 
-Los tipos comunes de restricciones son ``NOT NULL``, ``UNIQUE``, ``CHECK``, ``PRIMARY KEY`` y ``FOREIGN KEY. 
+Los tipos comunes de restricciones son ``NOT NULL``, ``UNIQUE``, ``CHECK``, ``PRIMARY KEY`` y ``FOREIGN KEY``.
+
+Las restricciones pueden ser inmediatas ``INITIALLY INMEDIATE`` o diferidas ``INITIALLY DEFERRABLE``. 
 
 #### NOT NULL
 Por defecto, una columna puede ser NULL, así que ponemos NOT NULL si no queremos que lo sea
@@ -144,6 +148,13 @@ Esta restricción sirve para que todos los valores de una columna sean distintos
 		nombre VARCHAR(10),
 		apellido VARCHAR(20)
 	);
+
+Otra manera utilizando ``CONSTRAINT``:
+
+	CREATE TABLE ejemplo (
+    		precio INTEGER CONSTRAINT precio_diferente UNIQUE,
+    		nombre VARCHAR(20)
+	);
 	
 Una columna que se especifica como clave primaria también puede ser única, pero una columna que es única no tiene por qué ser clave primaria.
 
@@ -151,10 +162,19 @@ Una columna que se especifica como clave primaria también puede ser única, per
 Esta restricción sirve para que todos los valores en una columna cumplan ciertas condiciones.
 
 	CREATE TABLE ejemplo (
-		id INTEGER CHECK(id>0), 
+		numero INTEGER CHECK (numero>0), 
 		nombre VARCHAR(10),
-		apellido VARCHAR(20)
+		precio INTEGER NOT NULL CHECK (precio>10)
 	);
+	
+Otra manera:	
+
+	CREATE TABLE ejemplo (
+    		numero INTEGER,
+    		nombre VARCHAR(10),
+    		precio INTEGER CONSTRAINT positivo_precio CHECK (price > 0)
+	);
+	
 	
 #### PRIMARY KEY	
 La clave primaria se utiliza para identificar en forma única cada línea en la tabla y puede consistir en uno o más campos en una tabla (en este caso se los denomina claves compuestas). 
@@ -171,6 +191,40 @@ En caso de que queramos añadir esta restricción una vez creada la tabla, harí
 
 #### FOREIGN KEY
 La clave foránea sirve para señalar la clave primaria de otra tabla para asegurar la integridad referencial de los datos. 
+
+		CREATE TABLE producto (
+  			producto_numero INTEGER PRIMARY KEY, 
+  			nombre VARCHAR(10),
+			precio INTEGER
+		);
+		
+		CREATE TABLE pedido (
+    			pedido_id INTEGER PRIMARY KEY,
+    			numero_producto INTEGER REFERENCES producto (product_numero),
+			factura INTEGER
+		);
+
+
+#### Restricciones inmediatas o diferidas
+
+--------> solo vamos a ver 4 tipos de restriccion en CREATE table (esta es la cuarta) una es UNIQUE fijo osea q sobra uno entiendo. PARA NOSOTROS ES MEJOR LA MANERA CON CONSTRAINT?? 
+
+SET CONSTRAINTS establece el comportamiento de la comprobación de restricciones dentro de la transacción actual. Las restricciones inmediatas (``INITIALLY INMEDIATE``), que es el comportamiento por defecto, se verifican al final de cada declaración, es decir, al momento. Las restricciones diferidas (``INITIALLY DEFERRABLE``), la comporbación de la restricción se puede posponer hasta el final de la transacción.. Cada restricción tiene su propio modo inmediato o diferido.
+
+
+EJEMPLO MAL FIJO COMPROBARLO NO LO ENTIENDO LLORO
+	[CONSTRAINT nombreRestriccion]
+		CHECK predicado (atributos)
+		[[NOT] DEFERRABLE] --> esq esto no lo entiendo jajaajaj
+		[INITIALLY INMEDIATE|DEFERRABLE]
+	;
+
+Ejemplo: (me da q en este ejmplo falta toda la aprte que seria ejemplo de esto xd en fin) 
+	CHECK saldo >= (
+		SELECT saldo
+		FROM empregado
+		WHERE departamento='A'
+	);
 
 
 
@@ -194,12 +248,9 @@ O de (SCHEMA|DATABASE) permite elixir entre ambos. O if not exists pode ir ou no
 
 
 
-O de INTEGER e así é o dominio
-Valores para fechas → DATA (data), TIME (hora), TIMESTAMP (data e hora).
 
-CHAR, VARCHAR, NCHAR, NCHAR VARYING, TEXT
 
-**Fijarse que aquí es NOT NULL, no IS NOT NULL. 
+
 
 
 
@@ -221,30 +272,6 @@ definir el resto
 
 
 
-[CONSTRAINT <nomeDaRestriccion>]
-	UNIQUE (<atributos>),
-	
-	
-UNIQUE (PRIMARY KEY) --> restricción de unicidad 
-
---------> solo vamos a ver 4 tipos de restriccion en CREATE table (esta es la cuarta) 
-
-[CONSTRAINT <nombreDaRestriccon>]
-	CHECK predicado (atributos)
-[[NOT] DEFERRABLE]
-[INITIALLY INMEDIATE|DEFERRABLE] --> esto fuera (hay que elegir entre inmediate y deferrable creo) 
-
-...
-Si es DEFERRABLE, la comporbación de la restricción se puede posponer hasta el final de la transacción.
-
-Comportamiento por defecto - que se haga al momento --> INITIALLY INMEDIATE
-Posponerlo --> INITIALLY DEFERRABLE
-
-Ejemplo:
-	CHECK saldo >= (
-		SELECT saldo
-		FROM empregado
-		WHERE departamento='A');
 
 
 
@@ -271,6 +298,8 @@ ALTER TABLE:
 	ADD <restricción> 
 	
 	DROP <restricción>
+	
+	
 
 ## DML - Data Manipulation Language
 
