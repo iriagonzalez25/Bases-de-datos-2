@@ -31,11 +31,12 @@ El dominio es donde puede tomar valores un atributos (INTEGER por ejemplo).
 
 Tipos de datos: Además de INTEGER, tenemos BIGINT y SMALLINT, pero vamos a utilizar unicamente INTEGER. FLOAT es para MySQL y REAL es para Postgres; nosotros vamos a utilizar FLOAT. No es recomendable utilizar TEXT por defecto por una cuestión de rendimiento. Creo que el time puede llevar detrás la zona horaria. El boolean considera 0 como falso, true como 1 y hay varias cosas más. 
 
-**Fijarse que aquí es NOT NULL, no IS NOT NULL. 
+**Fijarse que aquí es NOT NULL para definir que no sea nulo, no IS NOT NULL (IS NOT NULL sería si por ejemplo queremos poner  CHECK (column_name IS NOT NULL)**  
 
+Para borrar una tabla, se utiliza ``DROP``, pero si solo queremos borrar columnas hay que usar ``DELETE``. 
 ## Tipos de datos
 
-Aquí tenemos los tipos de datos que vamos a utilizar. 
+Aquí tenemos los tipos de datos (el dominio) que vamos a utilizar. 
 
 |**Numéricos**    |**Texto**      |**Fechas**     |**Otros**       |**Otros**|
 |-----------------|---------------|---------------|----------------|---------|
@@ -88,6 +89,11 @@ Un ejemplo de creación de tabla podría ser el siguiente:
 		nacido DATA
 	);
 
+#### IF NOT EXISTS
+
+no se por k enbeces aparece el IF NOT EXISTS o nsq muvis
+
+
 ### Borrar tablas
 
 El comando para borrar una tabla es `DROP TABLE`. 
@@ -96,6 +102,36 @@ La sintaxis para **borrar una tabla** es la siguiente:
 	
 	DROP TABLE nombreTabla;
 	
+Tenemos dos opciones a la hora de borrar, ``CASCADE``y ``RESTRICT`` **(creo que tablas y mas cosas)**, que irían después del nombre de la tabla pero no es necesario ponerlo ya que tiene como valor por defecto ``RESTRICT``(**COMPROBAR ESTO ULTIMO QUE NO SE SI ES ASI**. 
+
+	DROP TABLE tabla CASCADE;
+	
+	DROP TABLE tabla RESTRICT;
+	
+Podemos borrar dos tablas a la vez:
+
+	DROP TABLE tabla1, tabla2;
+
+Si utilizamos ``CASCADE``, cuando borras un dato en un tabla, todo lo que está asociado a ese dato se borrará también. En el siguiente ejemplo (comprobarlo) ``dept (id, name)``, ``teacher (id, name, dept, IBAN)``, el id de dept es lo mismo que el dept de teacher, por lo que si borras un id de dept, se borrará también el dept de teacher y pasará a ser NULL.
+
+``RESTRICT``, sin embargo, no permite eliminar la tabla si algún objeto depende de ella. Este es el valor predeterminado. 
+
+
+
+DROP SCHEMA
+[] <nomeDaBase>; 
+	
+DROP SCHEMA
+[IF EXISTS] <nomeDaBD>;
+	
+	
+DROP TABLE
+[IF EXISTS] <nombreDaTaboa>
+[CASCADE | RESTRICT]
+
+
+
+
 ### Modificar tablas
 
 El comando para modificar una tabla es `ALTER TABLE`.
@@ -106,21 +142,17 @@ Para **modificar el nombre** de una tabla hay que utilizar `RENAME TO`. La sinta
 
 Para **añadir columnas** a una tabla hay que utilizar `ADD`, la sintaxis es parecida a la de `CREATE TABLE` y es la siguiente:
 
-	ALTER TABLE nombreTabla ADD(nombreColumna tipoDatos [Propiedades])
+	ALTER TABLE nombreTabla ADD COLUMN (nombreColumna tipoDatos [Propiedades])
 	
 En caso de que se quisiera añadir más de una columna, simplemente habría que volver a poner _nombreColumna tipoDatos [Propiedades]_ otra vez dentro de los paréntesis. 
-	
-***** Algunas cosas requieren poner COLUMN después de ADD y de DROP y MODIFY --> mirar si lo nuestro 
 
 Para **borrar columnas** a una tabla hay que utilizar `DROP`siguiendo la sintaxis siguiente:
 
-	ALTER TABLE nombreTabla DROP(columna);
+	ALTER TABLE nombreTabla DROP COLUMN (columna);
 
-En caso de que se quisiera borrar más de una columna, simplemente habría que poner separadas por comas todas las comunas que se quieran borrar: _(columna, otraColumna, otraColumnaMás)_. 
+En caso de que se quisiera borrar más de una columna, simplemente habría que poner separadas por comas todas las columnas que se quieran borrar: ``(columna, otraColumna, otraColumnaMás)``. 
 
 El borrado de columnas es irreversible. 
-	
-
 
 
 ### Restricciones
@@ -131,6 +163,7 @@ Los tipos comunes de restricciones son ``NOT NULL``, ``UNIQUE``, ``CHECK``, ``PR
 
 Las restricciones pueden ser inmediatas ``INITIALLY INMEDIATE`` o diferidas ``INITIALLY DEFERRABLE``. 
 
+
 #### NOT NULL
 Por defecto, una columna puede ser NULL, así que ponemos NOT NULL si no queremos que lo sea
 
@@ -139,6 +172,7 @@ Por defecto, una columna puede ser NULL, así que ponemos NOT NULL si no queremo
 		nombre VARCHAR(10) NOT NULL,
 		apellido VARCHAR(20)
 	);
+	
 
 #### UNIQUE
 Esta restricción sirve para que todos los valores de una columna sean distintos. 
@@ -157,6 +191,7 @@ Otra manera utilizando ``CONSTRAINT``:
 	);
 	
 Una columna que se especifica como clave primaria también puede ser única, pero una columna que es única no tiene por qué ser clave primaria.
+
 
 #### CHECK
 Esta restricción sirve para que todos los valores en una columna cumplan ciertas condiciones.
@@ -189,8 +224,9 @@ En caso de que queramos añadir esta restricción una vez creada la tabla, harí
 
 	ALTER TABLE ejemplo ADD PRIMARY KEY (id);
 
+
 #### FOREIGN KEY
-La clave foránea sirve para señalar la clave primaria de otra tabla para asegurar la integridad referencial de los datos. 
+La clave foránea sirve para señalar la clave primaria de otra tabla para asegurar la integridad referencial de los datos. Puede haber más de una clave foránea en una tabla.
 
 		CREATE TABLE producto (
   			producto_numero INTEGER PRIMARY KEY, 
@@ -228,16 +264,46 @@ Ejemplo: (me da q en este ejmplo falta toda la aprte que seria ejemplo de esto x
 
 
 
+### Esquemas
 
+**esq yo no se a que viene lo de esquemas la verdad** 
 
-La creación de una base de datos permite CREATE SCHEMA y CREATW DATABASE. Un ejemplo de creación de bases de datos sería el siguiente:
+Una base de datos contiene uno o más esquemas con nombre, que a su vez contienen tablas. Para crear, borrar... los esquemas, se utiliza la misma sintaxis que en con las tablas:
+
+	CREATE SCHEMA esquema;
+	
+Para crear una tabla en el esquema:
+
+	CREATE TABLE esquema.tabla (...);
+	
+Para borrar un esquema:
+
+	DROP SCHEMA esquema;
+	
+Si lo queremos borrar incluyendo todos sus objetos:
+
+	DROP SCHEMA esquema CASCADE;
+
+Un ejemplo de creación de bases de datos sería el siguiente:
 _CREATE DATABASE myDB;_
 _CREATE SCHEMA myOtherDB;_
 
 
 
 
+#### MATCH
 
+**No sé de que manera meter este apartado, si tres o cuatro almohadillas y si al principio o al final. 
+
+Hay tres tipos: ``MATCH FULL``, ``MATCH PARTIAL`` y ``MATCH SIMPLE`` (valor predeterminado). Por una parte, ``MATCH FULL`` no permite que una columna de una clave externa de varias columnas sea nula a menos que todas las columnas de clave externa sean nulas. ``MATCH SIMPLE`` permite que algunas columnas de clave externa sean nulas, mientras que otras partes de la clave externa no lo son. ``MARCH PARTIAL`` aún no está implementado. **seguro???** 
+
+	CREATE TABLE ejemplo (
+		id INTEGER PRIMARY KEY,
+		num INTEGER REFERENCES producto (otro_num) MATCH FULL
+	);
+
+
+### ordenar esto
 
 
 
@@ -268,26 +334,6 @@ Ejemplo (comprobarlo):
 
 definir el resto
 
-[MATCH FULL | PARTIAL]
-
-
-
-
-
-
-
-
-DROP SCHEMA
-[] <nomeDaBase>; 
-	
-DROP SCHEMA
-[IF EXISTS] <nomeDaBD>;
-	
-	
-DROP TABLE
-[IF EXISTS] <nombreDaTaboa>
-[CASCADE | RESTRICT]
-	
 	
 ALTER TABLE:
 	
@@ -298,7 +344,6 @@ ALTER TABLE:
 	ADD <restricción> 
 	
 	DROP <restricción>
-	
 	
 
 ## DML - Data Manipulation Language
