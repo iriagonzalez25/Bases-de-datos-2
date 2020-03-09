@@ -34,6 +34,11 @@ Tipos de datos: Además de INTEGER, tenemos BIGINT y SMALLINT, pero vamos a util
 **Fijarse que aquí es NOT NULL para definir que no sea nulo, no IS NOT NULL (IS NOT NULL sería si por ejemplo queremos poner  CHECK (column_name IS NOT NULL)**  
 
 Para borrar una tabla, se utiliza ``DROP``, pero si solo queremos borrar columnas hay que usar ``DELETE``. 
+
+En las PRIMARY KEY preferible usar CONSTRAINT porque esa forma sirve siempre, la otro solo sirve si hay una única clave primaria. NO USAR ALTER TABLE PARA PRIMARY KEY. 
+
+El asterisco en el enunciado significa NULL.
+
 ## Tipos de datos
 
 Aquí tenemos los tipos de datos (el dominio) que vamos a utilizar. 
@@ -43,7 +48,6 @@ Aquí tenemos los tipos de datos (el dominio) que vamos a utilizar.
 |``INTEGER``      |``CHAR(n)``    |``DATE``       |``BOOLEAN``     |``CIDR`` |
 |``DECIMAL``      |``VARCHAR(n)`` |``TIME``       |``MONEY``       |``JSON`` |
 |``REAL``         |``TEXT``       |``DATETIME``   |``INET``        |``UUID`` |
-
 
 - INTEGER --> para número enteros. También hay BIGINT y SMALLINT.
 - DECIMAL y REAL, es lo mismo pero DECIMAL es preciso y REAL es no preciso. 
@@ -62,6 +66,15 @@ Ejemplos:
 - Texto de como máximo longitud 20 --> VARCHAR(20).
 
 rollo para asegurarse de que un dni tiene longitud 9 --> CONSTRAINT ck_dni CHECK LENGHT(dni)=9; 
+
+### Crear un dominio
+
+Se pueden crear dominios diferentes a los que ya existen. Para ello, hay que utilizar ``CREATE DOMAIN``. 
+
+	CREATE DOMAIN nombreDom tipo_Datos;
+
+Tenemos el siguiente ejemplo ``CREATE DOMAIN tipo_DNI CHAR(9)``. Ahora, será lo mismo poner tipo_DNI que CHAR(9). 
+
 
 ## DDL - Data Definition Language
 
@@ -212,7 +225,7 @@ Otra manera:
 	
 	
 #### PRIMARY KEY	
-La clave primaria se utiliza para identificar en forma única cada línea en la tabla y puede consistir en uno o más campos en una tabla (en este caso se los denomina claves compuestas). 
+La clave primaria se utiliza para identificar en forma única cada línea en la tabla y puede consistir en uno o más campos en una tabla (en este caso se los denomina claves compuestas). En caso de que solo haya una clave primaria:
 
 	CREATE TABLE ejemplo (
 		id INTEGER PRIMARY KEY
@@ -220,7 +233,16 @@ La clave primaria se utiliza para identificar en forma única cada línea en la 
 		apellido VARCHAR(20)
 	);
 
-En caso de que queramos añadir esta restricción una vez creada la tabla, haríamos lo siguiente:
+Si hay más de una clave primaria (o una solo), se utiliza los siguiente (NO SE PUEDE USAR LA FORMA ANTERIOR):
+
+	CREATE TABLE ejemplo (
+		id INTEGER,
+		nombre VARCHAR(10),
+		apellido VARCHAR(20),
+		CONSTRAINT PK_ejemplo PRIMARY KEY (
+	);
+
+Es mejor establecer las claves primarias en ``CREATE TABLE``, pero en caso de que queramos añadir esta restricción una vez creada la tabla, haríamos lo siguiente (separamos por comas los atributos si son más de uno):
 
 	ALTER TABLE ejemplo ADD PRIMARY KEY (id);
 
@@ -384,3 +406,5 @@ Para **eliminar datos** de una tabla hay que utilizar `DELETE FROM`, y la sintax
 En este caso, la parte de _WHERE_ también es opcional. 
 
 Ejemplo: ``DELETE FROM world WHERE population>100000000;``
+
+
