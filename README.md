@@ -80,26 +80,8 @@ Tenemos el siguiente ejemplo ``CREATE DOMAIN tipo_DNI CHAR(9)``. Ahora, será lo
 
 DDL es el lenguaje que se encarga de la definición de datos. Crea, modifica y elimina los objetos de la base de datos. 
 
+Se pueden crear bases de datos, esquemas y tablas. Una base de datos contiene uno o más esquemas con nombre, que a su vez contienen tablas.
 
-El comando para crear una base de datos es `CREATE DATABASE`. Ejemplo: ``CREATE DATABASE nombreBD;`` y lo mismo para un esquema: `CREATE SCHEMA nombreEsquema`. 
-
-
-
-
-DROP SCHEMA
-[] <nomeDaBase>; 
-	
-DROP SCHEMA
-[IF EXISTS] <nomeDaBD>;
-	
-
-Unha das fórmulas da instrucción CREATE é: 
-CREATE (SCHEMA|DATABASE) [IF NOT EXISTS] <nome-da-base> [CHARACTER SET <nome-do-Charget>]
-
-O de (SCHEMA|DATABASE) permite elixir entre ambos. O if not exists pode ir ou non ir, e entre <> hai que poñer o nome da base de datos. Lo de character set no sé qué es la vd.
-
-
-**ME FALTA LO DE ASSERTION TB** 
 
 ### Crear tablas
 
@@ -354,7 +336,7 @@ Veamos un ejemplo:
 
 #### Restricciones inmediatas o diferidas
 
---------> solo vamos a ver 4 tipos de restriccion en CREATE table (esta es la cuarta) una es UNIQUE fijo osea q sobra uno entiendo. PARA NOSOTROS ES MEJOR LA MANERA CON CONSTRAINT?? 
+--------> solo vamos a ver 4 tipos de restriccion en CREATE table (esta es la cuarta) una es UNIQUE fijo osea q sobra uno entiendo. 
 
 SET CONSTRAINTS establece el comportamiento de la comprobación de restricciones dentro de la transacción actual. Las restricciones inmediatas (``INITIALLY INMEDIATE``), que es el comportamiento por defecto, se verifican al final de cada declaración, es decir, al momento. Las restricciones diferidas (``INITIALLY DEFERRABLE``), la comporbación de la restricción se puede posponer hasta el final de la transacción.. Cada restricción tiene su propio modo inmediato o diferido.
 
@@ -374,34 +356,6 @@ Ejemplo: (me da q en este ejmplo falta toda la aprte que seria ejemplo de esto x
 	);
 
 
-
-### Esquemas
-
-**esq yo no se a que viene lo de esquemas la verdad** 
-
-Una base de datos contiene uno o más esquemas con nombre, que a su vez contienen tablas. Para crear, borrar... los esquemas, se utiliza la misma sintaxis que en con las tablas:
-
-	CREATE SCHEMA esquema;
-	
-Para crear una tabla en el esquema:
-
-	CREATE TABLE esquema.tabla (...);
-	
-Para borrar un esquema:
-
-	DROP SCHEMA esquema;
-	
-Si lo queremos borrar incluyendo todos sus objetos:
-
-	DROP SCHEMA esquema CASCADE;
-
-Un ejemplo de creación de bases de datos sería el siguiente:
-_CREATE DATABASE myDB;_
-_CREATE SCHEMA myOtherDB;_
-
-pero q es esto vamos a ver
-
-
 #### MATCH
 
 **No sé de que manera meter este apartado, si tres o cuatro almohadillas y si al principio o al final. 
@@ -412,6 +366,40 @@ Hay tres tipos: ``MATCH FULL``, ``MATCH PARTIAL`` y ``MATCH SIMPLE`` (que es el 
 		id INTEGER PRIMARY KEY,
 		num INTEGER REFERENCES producto (otro_num) MATCH FULL
 	);
+
+
+### Bases de datos
+
+Es parecido que a las tablas. El comando para crear bases de datos es `CREATE DATABASE`, y la sintaxis es la siguiente:
+
+	CREATE DATABASE [IF NOT EXISTS] nombreDB [CHARACTER SET <nome-do-Charget>];
+
+Para borrarlas, el comando es `DROP DATABASE`, con la sintaxis:
+	
+	DROP DATABASE [IF EXISTS] nombreDB;
+
+
+### Esquemas
+
+Una base de datos contiene uno o más esquemas con nombre, que a su vez contienen tablas. Para crear, borrar... los esquemas, se utiliza la misma sintaxis que en con las tablas:
+
+	CREATE SCHEMA [IF NOT EXISTS] esquema [CHARACTER SET <nome-do-Charget>];;
+	
+Para crear una tabla en el esquema:
+
+	CREATE TABLE esquema.tabla (...);
+	
+Para borrar un esquema:
+
+	DROP SCHEMA [IF EXISTS] esquema;
+	
+>Al igual que las tablas, podemos poner `CASCADE` al final si lo queremos borrar incluyendo todos sus objetos, poner `IF NOT EXISTS` después de `CREATE SCHEMA`... 
+	
+
+
+
+**ME FALTA LO DE ASSERTION TB** 
+
 
 
 ## DML - Data Manipulation Language
