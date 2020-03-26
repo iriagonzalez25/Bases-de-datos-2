@@ -80,15 +80,32 @@ Tenemos el siguiente ejemplo ``CREATE DOMAIN tipo_DNI CHAR(9)``. Ahora, será lo
 
 DDL es el lenguaje que se encarga de la definición de datos. Crea, modifica y elimina los objetos de la base de datos. 
 
-`CREATE` es un comando o una instrucción usada para crear bases de datos, tablas o usuarios.
 
-El comando para crear una base de datos es `CREATE DATABASE`. Ejemplo: ``CREATE DATABASE nombreBD;`` 
+El comando para crear una base de datos es `CREATE DATABASE`. Ejemplo: ``CREATE DATABASE nombreBD;`` y lo mismo para un esquema: `CREATE SCHEMA nombreEsquema`. 
+
+
+
+
+DROP SCHEMA
+[] <nomeDaBase>; 
+	
+DROP SCHEMA
+[IF EXISTS] <nomeDaBD>;
+	
+
+Unha das fórmulas da instrucción CREATE é: 
+CREATE (SCHEMA|DATABASE) [IF NOT EXISTS] <nome-da-base> [CHARACTER SET <nome-do-Charget>]
+
+O de (SCHEMA|DATABASE) permite elixir entre ambos. O if not exists pode ir ou non ir, e entre <> hai que poñer o nome da base de datos. Lo de character set no sé qué es la vd.
+
+
+**ME FALTA LO DE ASSERTION TB** 
 
 ### Crear tablas
 
 El comando para **crear una tabla** es `CREATE TABLE`, y la sintaxis para hacerlo es la siguiente:
 
-	CREATE TABLE [esquema.] nombreTabla (
+	CREATE TABLE nombreTabla (
 		nombreColumna1 tipoDatos [DEFAULT valor] 
         	[restricciones]  [, ...]
 	);
@@ -104,45 +121,39 @@ Un ejemplo de creación de tabla podría ser el siguiente:
 
 #### IF NOT EXISTS
 
-no se por k enbeces aparece el IF NOT EXISTS o nsq muvis
+Al crear una tabla se puede poner `IF NOT EXISTS`. Así, se creará una nueva tabla, solo si la tabla no existe actualmente en el conjunto de datos especificado. La sintaxis es la siguiente: 
 
+	CREATE TABLE IF NOT EXISTS nombreTabla: 
 
 ### Borrar tablas
 
-El comando para borrar una tabla es `DROP TABLE`. 
-
-La sintaxis para **borrar una tabla** es la siguiente:
+El comando para **borrar una tabla** es `DROP TABLE`. La sintaxis para hacerlo es la siguiente:
 	
 	DROP TABLE nombreTabla;
 	
-Tenemos dos opciones a la hora de borrar, ``CASCADE``y ``RESTRICT`` **(creo que tablas y mas cosas)**, que irían después del nombre de la tabla pero no es necesario ponerlo ya que tiene como valor por defecto ``RESTRICT``(**COMPROBAR ESTO ULTIMO QUE NO SE SI ES ASI**. 
+Podemos borrar dos tablas a la vez:
+
+	DROP TABLE tabla1, tabla2;
+	
+Tenemos dos opciones a la hora de borrar, ``CASCADE``y ``RESTRICT``, que irían después del nombre de la tabla pero no es necesario ponerlo. 
 
 	DROP TABLE tabla CASCADE;
 	
 	DROP TABLE tabla RESTRICT;
 	
-Podemos borrar dos tablas a la vez:
 
-	DROP TABLE tabla1, tabla2;
-
-Si utilizamos ``CASCADE``, cuando borras un dato en un tabla, todo lo que está asociado a ese dato se borrará también. En el siguiente ejemplo (comprobarlo) ``dept (id, name)``, ``teacher (id, name, dept, IBAN)``, el id de dept es lo mismo que el dept de teacher, por lo que si borras un id de dept, se borrará también el dept de teacher y pasará a ser NULL.
+Si utilizamos ``CASCADE``, al borrar un dato en un tabla, todo lo que está asociado a ese dato se borrará también. En el siguiente ejemplo (comprobarlo) ``dept (id, name)``, ``teacher (id, name, dept, IBAN)``, el id de dept es lo mismo que el dept de teacher, por lo que si borras un id de dept, se borrará también el dept de teacher y pasará a ser NULL.
 
 ``RESTRICT``, sin embargo, no permite eliminar la tabla si algún objeto depende de ella. Este es el valor predeterminado. 
 
-
-
-DROP SCHEMA
-[] <nomeDaBase>; 
 	
-DROP SCHEMA
-[IF EXISTS] <nomeDaBD>;
+#### IF EXISTS
 	
+Al contrario que en la creación de tablas, podemos poner `IF EXISTS`, de manera que se borrará una tabla, solo si la tabla ya existe. La sintaxis es la siguiente: 
+
+	CREATE TABLE IF EXISTS nombreTabla;
 	
-DROP TABLE
-[IF EXISTS] <nombreDaTaboa>
-[CASCADE | RESTRICT]
-
-
+Por supuesto, ambién se podrá poner `CASCADE` o `RESTRICT` después. 
 
 
 ### Modificar tablas
@@ -155,22 +166,23 @@ Para **modificar el nombre** de una tabla hay que utilizar `RENAME TO`. La sinta
 
 Para **añadir columnas** a una tabla hay que utilizar `ADD`, la sintaxis es parecida a la de `CREATE TABLE` y es la siguiente:
 
-	ALTER TABLE nombreTabla ADD COLUMN (nombreColumna tipoDatos [Propiedades])
+	ALTER TABLE nombreTabla ADD COLUMN (nombreColumna tipoDatos [Propiedades], ...);
+
+Para **borrar columnas** a una tabla hay que utilizar `DROP` siguiendo la sintaxis siguiente:
+
+	ALTER TABLE nombreTabla DROP COLUMN (columna, ...) [CASCADE | RESTRICT];
+
+>El borrado de columnas es irreversible. 
+
+También se pueden **añadir o borrar restricciones** a una tabla. Aún no las hemos visto (las veremos a continuación), pero la sintaxis sería la siguiente, (siguiendo la línea de las columnas): 
+
+	ALTER TABLE nombreTabla ADD <restricción>;
 	
-En caso de que se quisiera añadir más de una columna, simplemente habría que volver a poner _nombreColumna tipoDatos [Propiedades]_ otra vez dentro de los paréntesis. 
-
-Para **borrar columnas** a una tabla hay que utilizar `DROP`siguiendo la sintaxis siguiente:
-
-	ALTER TABLE nombreTabla DROP COLUMN (columna);
-
-En caso de que se quisiera borrar más de una columna, simplemente habría que poner separadas por comas todas las columnas que se quieran borrar: ``(columna, otraColumna, otraColumnaMás)``. 
-
-El borrado de columnas es irreversible. 
-
+	ALTER TABLE nombreTabla DROP <restricción>;
 
 ### Restricciones
 
-Pueden colocarse restricciones para limitar el tipo de dato que se ingresa en una tabla. Esto se hace con ``CONSTRAINT``, pero no es necesario poner ``CONSTRAINT``(lo veremos a continuación a través de ejemplos). Estas restricciones pueden especificarse al crear la tabla, o modificándola. 
+Pueden colocarse restricciones para limitar el tipo de dato que se ingresa en una tabla. Esto se hace con ``CONSTRAINT``, aunque no es necesario poner ``CONSTRAINT``(lo veremos a continuación a través de ejemplos). Estas restricciones pueden especificarse al crear la tabla, o modificándola. 
 
 Los tipos comunes de restricciones son ``NOT NULL``, ``UNIQUE``, ``CHECK``, ``PRIMARY KEY`` y ``FOREIGN KEY``.
 
@@ -184,8 +196,7 @@ Por defecto, una columna puede ser NULL, así que ponemos NOT NULL si no queremo
 		id CHAR(3) NOT NULL, 
 		nombre VARCHAR(10) NOT NULL,
 		apellido VARCHAR(20)
-	);
-	
+	);	
 
 #### UNIQUE
 Esta restricción sirve para que todos los valores de una columna sean distintos. 
@@ -202,8 +213,8 @@ Otra manera utilizando ``CONSTRAINT``:
     		precio INTEGER CONSTRAINT precio_diferente UNIQUE,
     		nombre VARCHAR(20)
 	);
-	
-Una columna que se especifica como clave primaria también puede ser única, pero una columna que es única no tiene por qué ser clave primaria.
+
+>Una columna que se especifica como clave primaria también puede ser única, pero una columna que es única no tiene por qué ser clave primaria.
 
 
 #### CHECK
@@ -215,14 +226,22 @@ Esta restricción sirve para que todos los valores en una columna cumplan cierta
 		precio INTEGER NOT NULL CHECK (precio>10)
 	);
 	
-Otra manera:	
+Otra manera, utilizando `CONSTRAINT`:	
 
 	CREATE TABLE ejemplo (
     		numero INTEGER,
-    		nombre VARCHAR(10),
-    		precio INTEGER CONSTRAINT positivo_precio CHECK (price > 0)
+		precio INTEGER CONSTRAINT positivo_precio CHECK (precio > 0),
+    		nombre VARCHAR(10)
 	);
 	
+Es muy común poner los `CONSTRAINT`al final:
+
+	CREATE TABLE ejemplo (
+    		numero INTEGER,
+		precio INTEGER 
+    		nombre VARCHAR(10),
+		CONSTRAINT positivo_precio CHECK (precio > 0)
+	);
 	
 #### PRIMARY KEY	
 La clave primaria se utiliza para identificar en forma única cada línea en la tabla y puede consistir en uno o más campos en una tabla (en este caso se los denomina claves compuestas). En caso de que solo haya una clave primaria:
@@ -233,16 +252,27 @@ La clave primaria se utiliza para identificar en forma única cada línea en la 
 		apellido VARCHAR(20)
 	);
 
-Si hay más de una clave primaria (o una solo), se utiliza los siguiente (NO SE PUEDE USAR LA FORMA ANTERIOR):
+Si hay más de una clave primaria (también sirve si hay una solo), se utiliza los siguiente (Y NO SE PUEDE USAR LA FORMA ANTERIOR).
+
+En caso de que sea solamente una clave primaria:
 
 	CREATE TABLE ejemplo (
 		id INTEGER,
 		nombre VARCHAR(10),
 		apellido VARCHAR(20),
-		CONSTRAINT PK_ejemplo PRIMARY KEY (
+		CONSTRAINT PK_ejemplo PRIMARY KEY (id)
 	);
 
-Es mejor establecer las claves primarias en ``CREATE TABLE``, pero en caso de que queramos añadir esta restricción una vez creada la tabla, haríamos lo siguiente (separamos por comas los atributos si son más de uno):
+En caso de que haya varias claves primarias:
+
+	CREATE TABLE ejemplo (
+		id INTEGER,
+		nombre VARCHAR(10),
+		apellido VARCHAR(20),
+		CONSTRAINT PK_ejemplo PRIMARY KEY (id, nombre)
+	);
+
+Es mejor establecer las claves primarias en ``CREATE TABLE``, pero en caso de que queramos añadir esta restricción una vez creada la tabla, utilizaríamos `ALTER TABLE`, que lo vimos anteriormente pero no ejemplificamos las restricciones porque todavía no las habíamos visto (separamos por comas los atributos si son más de uno):
 
 	ALTER TABLE ejemplo ADD PRIMARY KEY (id);
 
@@ -258,10 +288,69 @@ La clave foránea sirve para señalar la clave primaria de otra tabla para asegu
 		
 		CREATE TABLE pedido (
     			pedido_id INTEGER PRIMARY KEY,
-    			numero_producto INTEGER REFERENCES producto (product_numero),
+    			numero_producto INTEGER REFERENCES producto (producto_numero),
 			factura INTEGER
 		);
 
+En caso de que utilicemos `CONSTRAINT`:
+
+	CREATE TABLE producto (
+  			producto_numero INTEGER PRIMARY KEY, 
+  			nombre VARCHAR(10),
+			precio INTEGER
+		);
+		
+	CREATE TABLE pedido (
+		pedido_id INTEGER PRIMARY KEY,
+		numero_producto INTEGER 
+		factura INTEGER,
+		CONSTRAINT FK_pedido 
+		    FOREIGN KEY (numero_producto) 
+		    REFERENCES producto (producto_numero),
+	);
+
+>Usar siempre la forma con `CONSTRAINT`al final (en todo, no solo aquí), para evitar confusiones. 
+
+Utilizamos `ALTER TABLE`, podríamos añadir la restricción así:
+
+	ALTER TABLE Departamento
+  	    ADD CONSTRAINT FK_pedido
+    		FOREIGN KEY (Director)
+                REFERENCES Profesor (DNI)
+    		ON DELETE SET NULL
+   		ON UPDATE CASCADE;
+
+
+##### ON DELETE y ON UPDATE
+
+`ON DELETE` y `ON UPDATE` (es opcional) sirve para especificar lo que pasará cuando borras o modificas, respectivamente, un dato de una tabla. Las acciones permitidas para `ON DELETE` y `ON UPDATE` son:
+
+- ``CASCADE``. Al borrar o actualizar un dato en una tabla, todo lo que está asociado a ese dato se borrará o actualizará también. 
+
+- `NO ACTION`, sin embargo, no permite eliminar o actualizar la tabla si algún objeto depende de ella. Este es el valor predeterminado. 
+
+- `SET NULL`. El cambio está permitido y las columnas de clave externa de la fila secundaria se establecen en NULL.
+
+- `SET DEFAULT`. Es similar a `SET NULL`, pero las columnas de clave externa se establecieron en sus valores predeterminados. Si los valores predeterminados no existen, se produce un error.
+
+Veamos un ejemplo:
+
+	CREATE TABLE producto (
+		producto_numero INTEGER PRIMARY KEY, 
+		nombre VARCHAR(10),
+		precio INTEGER
+	);
+		
+	CREATE TABLE pedido (
+		pedido_id INTEGER PRIMARY KEY,
+		numero_producto INTEGER 
+		factura INTEGER,
+		CONSTRAINT FK_REFERENCES 
+		   FOREIGN KEY (numero_preducto) 
+		   REFERENCES producto (producto_numero) 
+		   ON DELETE SET NULL
+		   ON UPDATE CASCADE
+	);
 
 #### Restricciones inmediatas o diferidas
 
@@ -310,63 +399,20 @@ Un ejemplo de creación de bases de datos sería el siguiente:
 _CREATE DATABASE myDB;_
 _CREATE SCHEMA myOtherDB;_
 
-
+pero q es esto vamos a ver
 
 
 #### MATCH
 
 **No sé de que manera meter este apartado, si tres o cuatro almohadillas y si al principio o al final. 
 
-Hay tres tipos: ``MATCH FULL``, ``MATCH PARTIAL`` y ``MATCH SIMPLE`` (valor predeterminado). Por una parte, ``MATCH FULL`` no permite que una columna de una clave externa de varias columnas sea nula a menos que todas las columnas de clave externa sean nulas. ``MATCH SIMPLE`` permite que algunas columnas de clave externa sean nulas, mientras que otras partes de la clave externa no lo son. ``MARCH PARTIAL`` aún no está implementado. **seguro???** 
+Hay tres tipos: ``MATCH FULL``, ``MATCH PARTIAL`` y ``MATCH SIMPLE`` (que es el valor predeterminado). Por una parte, ``MATCH FULL`` no permite que una columna de una clave externa de varias columnas sea nula a menos que todas las columnas de clave externa sean nulas. ``MATCH SIMPLE`` permite que algunas columnas de clave externa sean nulas, mientras que otras partes de la clave externa no lo son. ``MARCH PARTIAL`` aún no está implementado. **seguro???** 
 
 	CREATE TABLE ejemplo (
 		id INTEGER PRIMARY KEY,
 		num INTEGER REFERENCES producto (otro_num) MATCH FULL
 	);
 
-
-### ordenar esto
-
-
-
-Unha das fórmulas da instrucción CREATE é: 
-CREATE (SCHEMA|DATABASE) [IF NOT EXISTS] <nome-da-base> [CHARACTER SET <nome-do-Charget>]
-
-O de (SCHEMA|DATABASE) permite elixir entre ambos. O if not exists pode ir ou non ir, e entre <> hai que poñer o nome da base de datos. Lo de character set no sé qué es la vd.
-
-
-
-
-
-
-
-
-
-[ON DELETE
-	NO ACTION | CASCADE
-	SET NULL | SET DEFAULT
-]
-
-
-CASCADE --> cuando borras un dato en un tabla, todo lo que está asociado a ese dato se borrará también. 
-Ejemplo (comprobarlo):
-	dept (_id_, name)
-	teacher (id, name, _dept_, IBAN)
-	_El id de dept es lo mismo que el dept de teacher, por lo que si borras un id de dept, se borrará también el dept de teacher y será null_ 
-
-definir el resto
-
-	
-ALTER TABLE:
-	
-	ADD [COLUMN] <atributo> <dominio> .. 
-
-	DROP COLUMN <atributo> [CASCADE | RESTRICT]
-	
-	ADD <restricción> 
-	
-	DROP <restricción>
-	
 
 ## DML - Data Manipulation Language
 
