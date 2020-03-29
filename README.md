@@ -2,7 +2,9 @@
 
 ## Índice
 
-## Recordamos
+[Recordamos](#Recordamos)
+
+## Introducción SQL
 
 SQL es un lenguaje declarativo (declara la intención) para gestionar bases de datos relacionales, pero aunque tenga seis sublenguajes, SQL es solamente uno. Los sublenguajes son los siguientes:
 
@@ -15,29 +17,30 @@ SQL es un lenguaje declarativo (declara la intención) para gestionar bases de d
 |**DCL (Data Control Language)**                                                    |`GRANT`, `REVOKE`                      |
 |**SCL (Session Control Language)**                                                 |`ALTER SESSION`                        |
 
-## A tener en cuenta
+>En este documento, vamos a ver DDL y DML. 
 
-En VARCHAR2, es mejor poner longitud máxima que sepas que te va a sobrar, no tirar por lo bajo y que después tengas problemas.
+## Anotaciones generales
 
 Los textos literales se ponen entre comillas. 
 
-NUMBER(8) sería lo mismo que NUMBER(8,0). 
+El dominio es donde puede tomar valores un atributos (`INTEGER`, por ejemplo). 
 
-Si borras una tabla, no hay comando para recuperarla. 
+Para establecer las claves primarias, preferiblemente no usar `ALTER TABLE` y establecerlas al crear la tabla. 
+
+Para borrar una tabla, se utiliza `DROP`, pero para borrar columnas hay que usar `DELETE`. 
+
+Para las restricciones, mejor utilizar siempre el formato con `CONSTRAINT` al final, ya que de esta forma sirve siempre, si se pone detrás del atributo solo sirve cuando hay una única clave. Así evitamos confusiones. 
+
+Además, la forma con `CONSTRAINT` puede ser poniendo o no `CONSTRAINT`, pero mejor ponerlo también porque así se hace siempre de la misma forma y no hay confusiones. 
+
+Se utiliza `NULL` o `NOT NULL` para que algo no sea nulo, no `IS NULL` o `IS NOT NULL` (`IS NOT NULL` sería si por ejemplo queremos poner `CHECK (column_name IS NOT NULL)`.
 
 En `INSERT INTO`, en algunos casos no es necesario poner las columnas, pero mejor ponerlas siempre para no confundirse. 
 
-El dominio es donde puede tomar valores un atributos (INTEGER por ejemplo). 
+En los enunciados, el asterisco significa `NULL`.
 
-Tipos de datos: Además de INTEGER, tenemos BIGINT y SMALLINT, pero vamos a utilizar unicamente INTEGER. FLOAT es para MySQL y REAL es para Postgres; nosotros vamos a utilizar FLOAT. No es recomendable utilizar TEXT por defecto por una cuestión de rendimiento. Creo que el time puede llevar detrás la zona horaria. El boolean considera 0 como falso, true como 1 y hay varias cosas más. 
+>A lo largo del documento habrá anotaciones específicas para cada apartado, que estarán en este formato. 
 
-**Fijarse que aquí es NOT NULL para definir que no sea nulo, no IS NOT NULL (IS NOT NULL sería si por ejemplo queremos poner  CHECK (column_name IS NOT NULL)**  
-
-Para borrar una tabla, se utiliza ``DROP``, pero si solo queremos borrar columnas hay que usar ``DELETE``. 
-
-En las PRIMARY KEY preferible usar CONSTRAINT porque esa forma sirve siempre, la otro solo sirve si hay una única clave primaria. NO USAR ALTER TABLE PARA PRIMARY KEY. 
-
-El asterisco en el enunciado significa NULL.
 
 ## Tipos de datos
 
@@ -49,32 +52,45 @@ Aquí tenemos los tipos de datos (el dominio) que vamos a utilizar.
 |``DECIMAL``      |``VARCHAR(n)`` |``TIME``       |``MONEY``       |``JSON`` |
 |``REAL``         |``TEXT``       |``DATETIME``   |``INET``        |``UUID`` |
 
-- INTEGER --> para número enteros. También hay BIGINT y SMALLINT.
-- DECIMAL y REAL, es lo mismo pero DECIMAL es preciso y REAL es no preciso. 
-- CHAR --> para textos de lonigtud limitada fija.
-- VARCHAR --> para textos de longitud limitada variable.
-- TEXT --> para textos de longitud ilimitada variable.
-- DATE --> formato: AAAA-MM-DD.
-- TIME --> formato: hh:mm:ss...
-- DATETIME --> formato: AAAA-MM-DD hh:mm:ss.
-- BOOLEAN --> posibles valores, true o 1, false o 0, NULL. 
-- MONEY --> para trabajar con dinero. 
-- **El resto no tengo ni idea la vd** --> buscarlo nel internete
+`INTEGER` --> para número enteros. También hay `BIGINT` y `SMALLINT`.
+
+`DECIMAL` y `REAL` --> es lo mismo pero `DECIMAL` es preciso y `REAL` es no preciso. 
+
+`CHAR` --> para textos de lonigtud limitada fija.
+
+`VARCHAR` --> para textos de longitud limitada variable.
+
+`TEXT` --> para textos de longitud ilimitada variable.
+
+`DATE` --> formato: AAAA-MM-DD.
+
+`TIME` --> formato: hh:mm:ss...
+
+`DATETIME` --> formato: AAAA-MM-DD hh:mm:ss.
+
+`BOOLEAN` --> posibles valores, true o 1, false o 0, NULL. 
+
+`MONEY` --> para trabajar con dinero.
+
+`INET` --> contiene una dirección de host IPv4 o IPv6 y, opcionalmente, su subred, todo en un campo.
+
+`CIDR` --> contiene una especificación de red IPv4 o IPv6. 
+
+`JSON` --> se usa para intercambiar datos en las aplicaciones web y móviles modernas. 
+
+`UUID` --> muestra un identificador único universal aleatorio como un string. 
+
+>En `VARCHAR`, poner como longitud máxima una que sepas que te va a sobrar, no tirar por lo bajo porque después puedes tener problemas.
+
+>Usar `TEXT` solo cuando sean textos muy largos. No es recomendable usarlo por cuestión de rendimiento. 
+
+>Diferencia entre `INET` y `CIDR`: `INET` acepta valores con bits distintos de cero a la derecha de la máscara de red y `CIDR` no. 
+
+>Si solo se quieren aceptar redes, usar `CIDR`. 
 
 Ejemplos: 
-- Texto de longitud 10 --> CHAR(10). 
-- Texto de como máximo longitud 20 --> VARCHAR(20).
-
-rollo para asegurarse de que un dni tiene longitud 9 --> CONSTRAINT ck_dni CHECK LENGHT(dni)=9; 
-
-### Crear un dominio
-
-Se pueden crear dominios diferentes a los que ya existen. Para ello, hay que utilizar ``CREATE DOMAIN``. 
-
-	CREATE DOMAIN nombreDom tipo_Datos;
-
-Tenemos el siguiente ejemplo ``CREATE DOMAIN tipo_DNI CHAR(9)``. Ahora, será lo mismo poner tipo_DNI que CHAR(9). 
-
+- *Texto de longitud 10 --> `CHAR(10)`.*
+- *Texto de como máximo longitud 10 --> `VARCHAR(10)`.*
 
 ## DDL - Data Definition Language
 
@@ -82,6 +98,13 @@ DDL es el lenguaje que se encarga de la definición de datos. Crea, modifica y e
 
 Se pueden crear bases de datos, esquemas y tablas. Una base de datos contiene uno o más esquemas con nombre, que a su vez contienen tablas.
 
+### Crear un dominio
+
+Se pueden **crear dominios** diferentes a los que ya existen. Para ello, hay que utilizar ``CREATE DOMAIN``. 
+
+	CREATE DOMAIN nombreDom tipo_Datos;
+
+Tenemos el siguiente ejemplo,  ``CREATE DOMAIN tipo_DNI CHAR(9)``. Ahora, será lo mismo poner tipo_DNI que CHAR(9). 
 
 ### Crear tablas
 
@@ -128,6 +151,7 @@ Si utilizamos ``CASCADE``, al borrar un dato en un tabla, todo lo que está asoc
 
 ``RESTRICT``, sin embargo, no permite eliminar la tabla si algún objeto depende de ella. Este es el valor predeterminado. 
 
+>No hay comando para recuperar una tabla tras borrarla. 
 	
 #### IF EXISTS
 	
@@ -224,6 +248,8 @@ Es muy común poner los `CONSTRAINT`al final:
     		nombre VARCHAR(10),
 		CONSTRAINT positivo_precio CHECK (precio > 0)
 	);
+	
+>Para asegurarse de que un atributo tiene una longitud determinada (por ejemplo, 9), habrá que poner: `CONSTRAINT ck_atb CHECK LENGHT (atb) = 9;` 
 	
 #### PRIMARY KEY	
 La clave primaria se utiliza para identificar en forma única cada línea en la tabla y puede consistir en uno o más campos en una tabla (en este caso se los denomina claves compuestas). En caso de que solo haya una clave primaria:
