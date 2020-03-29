@@ -2,8 +2,8 @@
 
 ## Índice
 
-[Introducción SQL](##Introducción SQL)
-[Anotaciones generales](##Anotaciones generales)
+[Introducción SQL](#Introducción SQL)
+[Anotaciones generales](#Anotaciones generales)
 
 
 ## Introducción SQL
