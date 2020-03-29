@@ -2,8 +2,8 @@
 
 ## Índice
 
-[Introducción SQL](#Introducción SQL)
-[Anotaciones generales](#Anotaciones generales)
+[Introducción SQL](## Introducción SQL)
+[Anotaciones generales](#)
 
 
 ## Introducción SQL
@@ -19,7 +19,7 @@ SQL es un lenguaje declarativo (declara la intención) para gestionar bases de d
 |**DCL (Data Control Language)**                                                    |`GRANT`, `REVOKE`                      |
 |**SCL (Session Control Language)**                                                 |`ALTER SESSION`                        |
 
->En este documento, vamos a ver DDL y DML. 
+En este documento, vamos a ver DDL y DML. 
 
 ## Anotaciones generales
 
@@ -53,6 +53,9 @@ Aquí tenemos los tipos de datos (el dominio) que vamos a utilizar.
 |``INTEGER``      |``CHAR(n)``    |``DATE``       |``BOOLEAN``     |``CIDR`` |
 |``DECIMAL``      |``VARCHAR(n)`` |``TIME``       |``MONEY``       |``JSON`` |
 |``REAL``         |``TEXT``       |``DATETIME``   |``INET``        |``UUID`` |
+
+
+A continuación, vamos a ver para qué se utiliza cada uno de ellos. 
 
 `INTEGER` --> para número enteros. También hay `BIGINT` y `SMALLINT`.
 
@@ -90,9 +93,7 @@ Aquí tenemos los tipos de datos (el dominio) que vamos a utilizar.
 
 >Si solo se quieren aceptar redes, usar `CIDR`. 
 
-Ejemplos: 
-- *Texto de longitud 10 --> `CHAR(10)`.*
-- *Texto de como máximo longitud 10 --> `VARCHAR(10)`.*
+Ejemplo: *si lo que queremos es un texto de longitud 10, usaremos `CHAR(10)`; si lo que queremos es un texto de como máximo longitud 10, usaremos `VARCHAR(10)`.*
 
 ## DDL - Data Definition Language
 
