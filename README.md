@@ -2,7 +2,9 @@
 
 ## Índice
 
-[Recordamos](#Recordamos)
+[Introducción SQL](##Introducción SQL)
+[Anotaciones generales](##Anotaciones generales)
+
 
 ## Introducción SQL
 
