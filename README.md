@@ -8,7 +8,8 @@
 
 ## Introducción SQL
 
-<span style="color:red">SQL</span> es un lenguaje declarativo (declara la intención) para gestionar bases de datos relacionales, pero aunque tenga seis sublenguajes, SQL es solamente uno. Los sublenguajes son los siguientes:
+Hola <span style="color:blue">some *blue* text</span> que tal. 
+SQL es un lenguaje declarativo (declara la intención) para gestionar bases de datos relacionales, pero aunque tenga seis sublenguajes, SQL es solamente uno. Los sublenguajes son los siguientes:
 
 |**Sublenguaje**                                                                    |**Instrucciones del sublenguaje**      |
 |-----------------------------------------------------------------------------------|---------------------------------------|
