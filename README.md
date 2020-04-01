@@ -4,6 +4,20 @@ Iria González Peteiro
 
 ## Índice 🎬
 
+- Tipos de datos
+- DDL
+   - Bases de datos
+   - Esquemas
+   - Crear dominios
+   - Crear tablas
+   - Borrar tablas
+   - Modificar tablas
+   - Restricciones
+- DML
+   - Insertar datos
+   - Modificar datos
+   - Eliminar datos
+   
 
 ## Introducción SQL 🚼
 
@@ -100,7 +114,7 @@ DDL es el lenguaje que se encarga de la definición de datos. Crea, modifica y e
 
 Se pueden crear bases de datos, esquemas y tablas. Una base de datos contiene uno o más esquemas con nombre, que a su vez contienen tablas.
 
-### Crear un dominio 🔨
+### Crear dominios 🔨
 
 Se pueden **crear dominios** diferentes a los que ya existen. Para ello, hay que utilizar ``CREATE DOMAIN``. 
 
