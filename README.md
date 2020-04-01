@@ -1,14 +1,13 @@
-# Apuntes SQL 2 - iria gonzález peteiro -
+Iria González Peteiro
 
-## Índice
+# Apuntes SQL 2 📝
 
-[Introducción SQL](## Introducción SQL)
-[Anotaciones generales](#)
+## Índice 🎬
 
 
-## Introducción SQL
+## Introducción SQL 🚼
 
-SQL es un lenguaje declarativo (declara la intención) para gestionar bases de datos relacionales, pero aunque tenga seis sublenguajes, SQL es solamente uno. Los sublenguajes son los siguientes:
+SQL es un lenguaje declarativo (declara la intención) para gestionar bases de datos relacionales, pero aunque tenga seis sublenguajes, SQL es solamente uno. Recordamos que los sublenguajes son los siguientes:
 
 |**Sublenguaje**                                                                    |**Instrucciones del sublenguaje**      |
 |-----------------------------------------------------------------------------------|---------------------------------------|
@@ -19,9 +18,9 @@ SQL es un lenguaje declarativo (declara la intención) para gestionar bases de d
 |**DCL (Data Control Language)**                                                    |`GRANT`, `REVOKE`                      |
 |**SCL (Session Control Language)**                                                 |`ALTER SESSION`                        |
 
-En este documento, vamos a ver DDL y DML. 
+>En este documento, vamos a ver DDL y DML. 
 
-## Anotaciones generales
+## Anotaciones generales ✏️
 
 Los textos literales se ponen entre comillas. 
 
@@ -44,7 +43,7 @@ En los enunciados, el asterisco significa `NULL`.
 >A lo largo del documento habrá anotaciones específicas para cada apartado, que estarán en este formato. 
 
 
-## Tipos de datos
+## Tipos de datos 💯
 
 Aquí tenemos los tipos de datos (el dominio) que vamos a utilizar. 
 
@@ -95,13 +94,13 @@ A continuación, vamos a ver para qué se utiliza cada uno de ellos.
 
 Ejemplo: *si lo que queremos es un texto de longitud 10, usaremos `CHAR(10)`; si lo que queremos es un texto de como máximo longitud 10, usaremos `VARCHAR(10)`.*
 
-## DDL - Data Definition Language
+## DDL - Data Definition Language 1️⃣👅
 
 DDL es el lenguaje que se encarga de la definición de datos. Crea, modifica y elimina los objetos de la base de datos. 
 
 Se pueden crear bases de datos, esquemas y tablas. Una base de datos contiene uno o más esquemas con nombre, que a su vez contienen tablas.
 
-### Crear un dominio
+### Crear un dominio 👷‍♂️
 
 Se pueden **crear dominios** diferentes a los que ya existen. Para ello, hay que utilizar ``CREATE DOMAIN``. 
 
@@ -109,7 +108,7 @@ Se pueden **crear dominios** diferentes a los que ya existen. Para ello, hay que
 
 Tenemos el siguiente ejemplo,  ``CREATE DOMAIN tipo_DNI CHAR(9)``. Ahora, será lo mismo poner tipo_DNI que CHAR(9). 
 
-### Crear tablas
+### Crear tablas 👷‍♂️
 
 El comando para **crear una tabla** es `CREATE TABLE`, y la sintaxis para hacerlo es la siguiente:
 
@@ -133,7 +132,7 @@ Al crear una tabla se puede poner `IF NOT EXISTS`. Así, se creará una nueva ta
 
 	CREATE TABLE IF NOT EXISTS nombreTabla: 
 
-### Borrar tablas
+### Borrar tablas 🙅‍♀️
 
 El comando para **borrar una tabla** es `DROP TABLE`. La sintaxis para hacerlo es la siguiente:
 	
@@ -162,10 +161,10 @@ Al contrario que en la creación de tablas, podemos poner `IF EXISTS`, de manera
 
 	CREATE TABLE IF EXISTS nombreTabla;
 	
-Por supuesto, ambién se podrá poner `CASCADE` o `RESTRICT` después. 
+Por supuesto, también se podrá poner `CASCADE` o `RESTRICT` después. 
 
 
-### Modificar tablas
+### Modificar tablas ♻︎
 
 El comando para modificar una tabla es `ALTER TABLE`.
 
@@ -189,17 +188,16 @@ También se pueden **añadir o borrar restricciones** a una tabla. Aún no las h
 	
 	ALTER TABLE nombreTabla DROP <restricción>;
 
-### Restricciones
+### Restricciones 🚫
 
 Pueden colocarse restricciones para limitar el tipo de dato que se ingresa en una tabla. Esto se hace con ``CONSTRAINT``, aunque no es necesario poner ``CONSTRAINT``(lo veremos a continuación a través de ejemplos). Estas restricciones pueden especificarse al crear la tabla, o modificándola. 
 
-Los tipos comunes de restricciones son ``NOT NULL``, ``UNIQUE``, ``CHECK``, ``PRIMARY KEY`` y ``FOREIGN KEY``.
-
-Las restricciones pueden ser inmediatas ``INITIALLY INMEDIATE`` o diferidas ``INITIALLY DEFERRABLE``. 
+Los tipos comunes de restricciones son ``NOT NULL``, ``UNIQUE``, ``CHECK``, ``PRIMARY KEY`` y ``FOREIGN KEY``, y pueden ser inmediatas o diferidas. 
 
 
 #### NOT NULL
-Por defecto, una columna puede ser NULL, así que ponemos NOT NULL si no queremos que lo sea
+
+Por defecto, una columna puede ser `NULL`, así que ponemos `NOT NULL` si no queremos que lo sea:
 
 	CREATE TABLE ejemplo (
 		id CHAR(3) NOT NULL, 
@@ -252,7 +250,8 @@ Es muy común poner los `CONSTRAINT`al final:
 		CONSTRAINT positivo_precio CHECK (precio > 0)
 	);
 	
->Para asegurarse de que un atributo tiene una longitud determinada (por ejemplo, 9), habrá que poner: `CONSTRAINT ck_atb CHECK LENGHT (atb) = 9;` 
+>Para asegurarse de que un atributo tiene una longitud determinada (por ejemplo, 9), habrá que poner: 
+>>`CONSTRAINT ck_atb CHECK LENGHT (atb) = 9;` 
 	
 #### PRIMARY KEY	
 La clave primaria se utiliza para identificar en forma única cada línea en la tabla y puede consistir en uno o más campos en una tabla (en este caso se los denomina claves compuestas). En caso de que solo haya una clave primaria:
@@ -263,7 +262,7 @@ La clave primaria se utiliza para identificar en forma única cada línea en la 
 		apellido VARCHAR(20)
 	);
 
-Si hay más de una clave primaria (también sirve si hay una solo), se utiliza los siguiente (Y NO SE PUEDE USAR LA FORMA ANTERIOR).
+Cuando hay más de una clave primaria (también sirve si hay una solo), se utiliza lo siguiente (y no se puede usar la forma anterior).
 
 En caso de que sea solamente una clave primaria:
 
@@ -320,7 +319,7 @@ En caso de que utilicemos `CONSTRAINT`:
 		    REFERENCES producto (producto_numero),
 	);
 
->Usar siempre la forma con `CONSTRAINT`al final (en todo, no solo aquí), para evitar confusiones. 
+>Usar siempre la forma con `CONSTRAINT` al final (en todo, no solo aquí), para evitar confusiones. 
 
 Utilizamos `ALTER TABLE`, podríamos añadir la restricción así:
 
@@ -330,6 +329,23 @@ Utilizamos `ALTER TABLE`, podríamos añadir la restricción así:
                 REFERENCES Profesor (DNI)
     		ON DELETE SET NULL
    		ON UPDATE CASCADE;
+
+##### MATCH
+
+La cláusula `MATCH` de una clave externa se usa para especificar el grado de coincidencia requerida entre claves externas y la clave referenciada. Ésta puede ser ``MATCH FULL``, ``MATCH PARTIAL`` y ``MATCH SIMPLE`` (que es el valor predeterminado), y estas opciones son válidas cuando la clave externa tiene valores nulos. 
+
+Por una parte, ``MATCH FULL`` no permite que una columna de una clave externa de varias columnas sea nula a menos que todas las columnas de clave externa sean nulas. 
+
+``MATCH SIMPLE`` permite que algunas columnas de clave externa sean nulas, mientras que otras partes de la clave externa no lo son. 
+
+``MARCH PARTIAL`` es válida si al menos una columna de la clave externa es nula y el resto de las columnas no nulas coinciden con las de las tablas referenciadas, o si todas las columnas de clave externa no son nulas y coinciden con la tabla referenciada.
+
+Se pondría así:
+
+	CREATE TABLE ejemplo (
+		id INTEGER PRIMARY KEY,
+		num INTEGER REFERENCES producto (otro_num) MATCH FULL
+	);
 
 
 ##### ON DELETE y ON UPDATE
@@ -365,39 +381,20 @@ Veamos un ejemplo:
 
 #### Restricciones inmediatas o diferidas
 
---------> solo vamos a ver 4 tipos de restriccion en CREATE table (esta es la cuarta) una es UNIQUE fijo osea q sobra uno entiendo. 
+Las restricciones pueden ser inmediatas (``INITIALLY INMEDIATE``), que es el comportamiento por defecto, y que se verifican al final de cada declaración, es decir, al momento, o también pueden ser diferidas (``INITIALLY DEFERRABLE``), en donde la comprobación de la restricción se puede posponer hasta el final de la transacción. Cada restricción tiene su propio modo inmediato o diferido.
 
-SET CONSTRAINTS establece el comportamiento de la comprobación de restricciones dentro de la transacción actual. Las restricciones inmediatas (``INITIALLY INMEDIATE``), que es el comportamiento por defecto, se verifican al final de cada declaración, es decir, al momento. Las restricciones diferidas (``INITIALLY DEFERRABLE``), la comporbación de la restricción se puede posponer hasta el final de la transacción.. Cada restricción tiene su propio modo inmediato o diferido.
+La sintaxis es la siguiente:
 
-
-EJEMPLO MAL FIJO COMPROBARLO NO LO ENTIENDO LLORO
-	[CONSTRAINT nombreRestriccion]
+	CONSTRAINT nombreRestriccion
 		CHECK predicado (atributos)
-		[[NOT] DEFERRABLE] --> esq esto no lo entiendo jajaajaj
+		[[NOT] DEFERRABLE] 
 		[INITIALLY INMEDIATE|DEFERRABLE]
 	;
 
-Ejemplo: (me da q en este ejmplo falta toda la aprte que seria ejemplo de esto xd en fin) 
-	CHECK saldo >= (
-		SELECT saldo
-		FROM empregado
-		WHERE departamento='A'
-	);
+>Cuando se establece que no es diferido, es decir, `NOT DEFERRABLE`, debería ir con `INITIALLY INMEDIATE`, y cuando se establece como `DEFERRABLE`, debería ser `INITIALLY DEFERRABLE`.
 
 
-#### MATCH
-
-**No sé de que manera meter este apartado, si tres o cuatro almohadillas y si al principio o al final. 
-
-Hay tres tipos: ``MATCH FULL``, ``MATCH PARTIAL`` y ``MATCH SIMPLE`` (que es el valor predeterminado). Por una parte, ``MATCH FULL`` no permite que una columna de una clave externa de varias columnas sea nula a menos que todas las columnas de clave externa sean nulas. ``MATCH SIMPLE`` permite que algunas columnas de clave externa sean nulas, mientras que otras partes de la clave externa no lo son. ``MARCH PARTIAL`` aún no está implementado. **seguro???** 
-
-	CREATE TABLE ejemplo (
-		id INTEGER PRIMARY KEY,
-		num INTEGER REFERENCES producto (otro_num) MATCH FULL
-	);
-
-
-### Bases de datos
+### Bases de datos 🔆
 
 Es parecido que a las tablas. El comando para crear bases de datos es `CREATE DATABASE`, y la sintaxis es la siguiente:
 
@@ -408,7 +405,7 @@ Para borrarlas, el comando es `DROP DATABASE`, con la sintaxis:
 	DROP DATABASE [IF EXISTS] nombreDB;
 
 
-### Esquemas
+### Esquemas 🔅
 
 Una base de datos contiene uno o más esquemas con nombre, que a su vez contienen tablas. Para crear, borrar... los esquemas, se utiliza la misma sintaxis que en con las tablas:
 
@@ -425,17 +422,11 @@ Para borrar un esquema:
 >Al igual que las tablas, podemos poner `CASCADE` al final si lo queremos borrar incluyendo todos sus objetos, poner `IF NOT EXISTS` después de `CREATE SCHEMA`... 
 	
 
-
-
-**ME FALTA LO DE ASSERTION TB** 
-
-
-
-## DML - Data Manipulation Language
+## DML - Data Manipulation Language 2️⃣👅
 
 DDL era para el manejo de datos. DML es para el manejo de estructuras. Los tres comandos de este sublenguaje son `INSERT`, `UPDATE` y `DELETE`. 
 
-### Insertar datos
+### Insertar datos ↪️
 
 Para **insertar datos** en un tabla hay que usar `INSERT INTO` y `VALUES`, siguiendo la sintaxis:
 
@@ -450,7 +441,7 @@ Si usamos `SELECT` hay ciertas restricciones:
 - Los atributos no tienen que llamarse igual.
 - Mismos dominimos (tipo de datos) que los de la tabla.
 
-### Modificar datos
+### Modificar datos 🔄
 
 Para **modificar los datos** de una tabla, hay que usar `UPDATE` y `SET`, con la sintaxis siguiente:
 
@@ -460,7 +451,7 @@ La parte de _WHERE ..._ es opcional.
 
 Ejemplo: ``UPDATE world SET name='España', continent='Africa' WHERE name='Spain';``
 
-### Eliminar datos
+### Eliminar datos ↩️
 
 Para **eliminar datos** de una tabla hay que utilizar `DELETE FROM`, y la sintaxis que debemos usar es:
 
