@@ -100,7 +100,7 @@ DDL es el lenguaje que se encarga de la definición de datos. Crea, modifica y e
 
 Se pueden crear bases de datos, esquemas y tablas. Una base de datos contiene uno o más esquemas con nombre, que a su vez contienen tablas.
 
-### Crear un dominio 👷‍♂️
+### Crear un dominio 🔨
 
 Se pueden **crear dominios** diferentes a los que ya existen. Para ello, hay que utilizar ``CREATE DOMAIN``. 
 
@@ -164,7 +164,7 @@ Al contrario que en la creación de tablas, podemos poner `IF EXISTS`, de manera
 Por supuesto, también se podrá poner `CASCADE` o `RESTRICT` después. 
 
 
-### Modificar tablas ♻︎
+### Modificar tablas ♻️
 
 El comando para modificar una tabla es `ALTER TABLE`.
 
