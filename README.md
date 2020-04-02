@@ -5,8 +5,8 @@ Iria González Peteiro
 ## Índice 🎬
 
 - [Introducción SQL](#intro)
-- [Tipos de datos](#tiposDatos)
 - [Anotaciones generales](#anotaciones)
+- [Tipos de datos](#tiposDatos)
 - [DDL](#ddl)
    - [Crear dominios](#dominios)
    - [Crear tablas](#crearT)
