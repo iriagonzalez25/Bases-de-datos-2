@@ -27,8 +27,8 @@ Iria González Peteiro
    - [Modificar datos](#modificarD)
    - [Eliminar datos](#eliminarD)
    
-
-## Introducción SQL 🚼 <a name="intro"></a>
+<a name="intro"></a>
+## Introducción SQL 🚼 
 
 SQL es un lenguaje declarativo (declara la intención) para gestionar bases de datos relacionales, pero aunque tenga seis sublenguajes, SQL es solamente uno. Recordamos que los sublenguajes son los siguientes:
 
@@ -43,7 +43,8 @@ SQL es un lenguaje declarativo (declara la intención) para gestionar bases de d
 
 >En este documento, vamos a ver DDL y DML. 
 
-## Anotaciones generales ✏️ <a name="anotaciones"></a>
+<a name="anotaciones"></a>
+## Anotaciones generales ✏️ 
 
 Los textos literales se ponen entre comillas. 
 
@@ -65,8 +66,8 @@ En los enunciados, el asterisco significa `NULL`.
 
 >A lo largo del documento habrá anotaciones específicas para cada apartado, que estarán en este formato. 
 
-
-## Tipos de datos 💯<a name="tiposDatos"></a>
+<a name="tiposDatos"></a>
+## Tipos de datos 💯
 
 Aquí tenemos los tipos de datos (el dominio) que vamos a utilizar. 
 
