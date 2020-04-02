@@ -19,7 +19,7 @@ Iria González Peteiro
    - [Insertar datos](#insertarD)
    - [Modificar datos](#modificarD)
    - [Eliminar datos](#eliminarD)
-   
+
 <a name="intro"></a>
 ## Introducción SQL 🚼 
 
@@ -223,8 +223,6 @@ Los tipos comunes de restricciones son ``NOT NULL``, ``UNIQUE``, ``CHECK``, ``PR
 - [CHECK](#check)
 - [PRIMARY KEY](#pk)
 - [FOREIGN KEY](#fk)
-	- [MATCH](#match)
-	- [ON DELETE y ON UPDATE](#deleteUpdate)
 - [Restricciones inmediatas o diferidas](#inmediatasDiferidas)
 
 
@@ -367,7 +365,6 @@ Utilizamos `ALTER TABLE`, podríamos añadir la restricción así:
     		ON DELETE SET NULL
    		ON UPDATE CASCADE;
 
-<a name="match"></a>
 ##### MATCH
 
 La cláusula `MATCH` de una clave externa se usa para especificar el grado de coincidencia requerida entre claves externas y la clave referenciada. Ésta puede ser ``MATCH FULL``, ``MATCH PARTIAL`` y ``MATCH SIMPLE`` (que es el valor predeterminado), y estas opciones son válidas cuando la clave externa tiene valores nulos. 
@@ -386,7 +383,6 @@ Se pondría así:
 	);
 
 
-<a name="deleteUpdate"></a>
 ##### ON DELETE y ON UPDATE
 
 `ON DELETE` y `ON UPDATE` (es opcional) sirve para especificar lo que pasará cuando borras o modificas, respectivamente, un dato de una tabla. Las acciones permitidas para `ON DELETE` y `ON UPDATE` son:
