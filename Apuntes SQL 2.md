@@ -2,6 +2,7 @@ Iria González Peteiro
 
 # Apuntes SQL 2 📝
 
+
 ## Índice 🎬
 
 - [Introducción SQL](#intro)
@@ -20,6 +21,7 @@ Iria González Peteiro
    - [Modificar datos](#modificarD)
    - [Eliminar datos](#eliminarD)
 
+
 <a name="intro"></a>
 ## Introducción SQL 🚼 
 
@@ -35,6 +37,7 @@ SQL es un lenguaje declarativo (declara la intención) para gestionar bases de d
 |**SCL (Session Control Language)**                                                 |`ALTER SESSION`                        |
 
 >En este documento, vamos a ver DDL y DML. 
+
 
 <a name="anotaciones"></a>
 ## Anotaciones generales ✏️ 
@@ -58,6 +61,7 @@ En `INSERT INTO`, en algunos casos no es necesario poner las columnas, pero mejo
 En los enunciados, el asterisco significa `NULL`.
 
 >A lo largo del documento habrá anotaciones específicas para cada apartado, que estarán en este formato. 
+
 
 <a name="tiposDatos"></a>
 ## Tipos de datos 💯
@@ -111,12 +115,14 @@ A continuación, vamos a ver para qué se utiliza cada uno de ellos.
 
 Ejemplo: *si lo que queremos es un texto de longitud 10, usaremos `CHAR(10)`; si lo que queremos es un texto de como máximo longitud 10, usaremos `VARCHAR(10)`.*
 
+
 <a name="ddl"></a>
 ## DDL - Data Definition Language 1️⃣👅 
 
 DDL es el lenguaje que se encarga de la definición de datos. Crea, modifica y elimina los objetos de la base de datos. 
 
 Se pueden crear bases de datos, esquemas y tablas. Una base de datos contiene uno o más esquemas con nombre, que a su vez contienen tablas.
+
 
 <a name="dominios"></a>
 ### Crear dominios 🔨 
@@ -126,6 +132,7 @@ Se pueden **crear dominios** diferentes a los que ya existen. Para ello, hay que
 	CREATE DOMAIN nombreDom tipo_Datos;
 
 Tenemos el siguiente ejemplo,  ``CREATE DOMAIN tipo_DNI CHAR(9)``. Ahora, será lo mismo poner tipo_DNI que CHAR(9). 
+
 
 <a name="crearT"></a>
 ### Crear tablas 👷‍♂️
@@ -146,12 +153,14 @@ Un ejemplo de creación de tabla podría ser el siguiente:
 		nacido DATA
 	);
 
+
 <a name="ifNot"></a>
 #### IF NOT EXISTS 
 
 Al crear una tabla se puede poner `IF NOT EXISTS`. Así, se creará una nueva tabla, solo si la tabla no existe actualmente en el conjunto de datos especificado. La sintaxis es la siguiente: 
 
 	CREATE TABLE IF NOT EXISTS nombreTabla: 
+
 
 <a name="borrarT"></a>
 ### Borrar tablas 🙅‍♀️
@@ -177,6 +186,7 @@ Si utilizamos ``CASCADE``, al borrar un dato en un tabla, todo lo que está asoc
 
 >No hay comando para recuperar una tabla tras borrarla. 
 
+
 <a name="if"></a>
 #### IF EXISTS 
 	
@@ -185,6 +195,7 @@ Al contrario que en la creación de tablas, podemos poner `IF EXISTS`, de manera
 	CREATE TABLE IF EXISTS nombreTabla;
 	
 Por supuesto, también se podrá poner `CASCADE` o `RESTRICT` después. 
+
 
 <a name="modificarT"></a>
 ### Modificar tablas ♻️ 
@@ -210,6 +221,7 @@ También se pueden **añadir o borrar restricciones** a una tabla. Aún no las h
 	ALTER TABLE nombreTabla ADD <restricción>;
 	
 	ALTER TABLE nombreTabla DROP <restricción>;
+
 
 <a name="restricciones"></a>
 ### Restricciones 🚫 
@@ -237,8 +249,10 @@ Por defecto, una columna puede ser `NULL`, así que ponemos `NOT NULL` si no que
 		apellido VARCHAR(20)
 	);	
 
+
 <a name="unique"></a>
 #### UNIQUE 
+
 Esta restricción sirve para que todos los valores de una columna sean distintos. 
 
 	CREATE TABLE ejemplo (
@@ -256,8 +270,10 @@ Otra manera utilizando ``CONSTRAINT``:
 
 >Una columna que se especifica como clave primaria también puede ser única, pero una columna que es única no tiene por qué ser clave primaria.
 
+
 <a name="check"></a>
 #### CHECK 
+
 Esta restricción sirve para que todos los valores en una columna cumplan ciertas condiciones.
 
 	CREATE TABLE ejemplo (
@@ -286,8 +302,10 @@ Es muy común poner los `CONSTRAINT`al final:
 >Para asegurarse de que un atributo tiene una longitud determinada (por ejemplo, 9), habrá que poner: 
 >>`CONSTRAINT ck_atb CHECK LENGHT (atb) = 9;` 
 
+
 <a name="pk"></a>
-#### PRIMARY KEY 	
+#### PRIMARY KEY 
+
 La clave primaria se utiliza para identificar en forma única cada línea en la tabla y puede consistir en uno o más campos en una tabla (en este caso se los denomina claves compuestas). En caso de que solo haya una clave primaria:
 
 	CREATE TABLE ejemplo (
@@ -323,6 +341,7 @@ Es mejor establecer las claves primarias en ``CREATE TABLE``, pero en caso de qu
 
 <a name="fk"></a>
 #### FOREIGN KEY 
+
 La clave foránea sirve para señalar la clave primaria de otra tabla para asegurar la integridad referencial de los datos. Puede haber más de una clave foránea en una tabla.
 
 		CREATE TABLE producto (
@@ -364,6 +383,7 @@ Utilizamos `ALTER TABLE`, podríamos añadir la restricción así:
                 REFERENCES Profesor (DNI)
     		ON DELETE SET NULL
    		ON UPDATE CASCADE;
+
 
 ##### MATCH
 
@@ -414,6 +434,7 @@ Veamos un ejemplo:
 		   ON UPDATE CASCADE
 	);
 
+
 <a name="inmediatasDiferidas"></a>
 #### Restricciones inmediatas o diferidas
 
@@ -429,6 +450,7 @@ La sintaxis es la siguiente:
 
 >Cuando se establece que no es diferido, es decir, `NOT DEFERRABLE`, debería ir con `INITIALLY INMEDIATE`, y cuando se establece como `DEFERRABLE`, debería ser `INITIALLY DEFERRABLE`.
 
+
 <a name="basesDatos"></a>
 ### Bases de datos 🔆 
 
@@ -439,6 +461,7 @@ Es parecido que a las tablas. El comando para crear bases de datos es `CREATE DA
 Para borrarlas, el comando es `DROP DATABASE`, con la sintaxis:
 	
 	DROP DATABASE [IF EXISTS] nombreDB;
+
 
 <a name="esquemas"></a>
 ### Esquemas 🔅 
@@ -463,6 +486,7 @@ Para borrar un esquema:
 
 DDL era para el manejo de datos. DML es para el manejo de estructuras. Los tres comandos de este sublenguaje son `INSERT`, `UPDATE` y `DELETE`. 
 
+
 <a name="insertarD"></a>
 ### Insertar datos ↪️ 
 
@@ -479,6 +503,7 @@ Si usamos `SELECT` hay ciertas restricciones:
 - Los atributos no tienen que llamarse igual.
 - Mismos dominimos (tipo de datos) que los de la tabla.
 
+
 <a name="modificarD"></a>
 ### Modificar datos 🔄 
 
@@ -490,6 +515,7 @@ La parte de _WHERE ..._ es opcional.
 
 Ejemplo: ``UPDATE world SET name='España', continent='Africa' WHERE name='Spain';``
 
+
 <a name="eliminarD"></a>
 ### Eliminar datos ↩️ 
 
@@ -497,8 +523,8 @@ Para **eliminar datos** de una tabla hay que utilizar `DELETE FROM`, y la sintax
 
 	DELETE FROM nombreTabla WHERE predicado;
 	
-En este caso, la parte de _WHERE_ también es opcional. 
+En este caso, la parte de *WHERE* también es opcional. 
 
-Ejemplo: ``DELETE FROM world WHERE population>100000000;``
+Ejemplo: `DELETE FROM world WHERE population>100000000;`
 
 
