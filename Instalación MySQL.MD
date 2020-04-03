@@ -1,6 +1,6 @@
-# Instalación MySQL macOS
+# Instalación MySQL
 
-Tras descargar el archivo DMG de MySQL a través del siguiente enlace https://dev.mysql.com/downloads/mysql/, lo abrimos e instalamos.
+Tras descargar el archivo DMG de MySQL (para es sistema operativo macOS) a través del siguiente enlace https://dev.mysql.com/downloads/mysql/, lo abrimos e instalamos.
 
 Una vez nos aparece en la ventana de instalación el mensaje "Instalación completada" y un check verde, abrimos preferencias del sistema y vemos que aparece el icono de MySQL en la última fila:
 
