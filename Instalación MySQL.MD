@@ -22,10 +22,9 @@ La próxima vez que entremos a la terminal, si ponemos el comando mysql nos dir�
 
 >sudo nano .bash_profile
 
-Se nos abrirá el archivo y le añadiremos la ruta donde tenemos mysql. Guardamos los cambios y cerramos la terminal. Ahora, si la abrimos y ponemos `mysql -u root -p` (tendremos que introducir también la contraseña), ya podremos empezar a trabajar con MySQL:
+Se nos abrirá el archivo y le añadiremos la ruta donde tenemos mysql. Guardamos los cambios y cerramos la terminal. 
 
-![Comando mysql habilitado]()
+Ahora, cada vez que queramos utilizar MySQL, abriremos la terminal y pondremos `mysql -u root -p` (tendremos que introducir también la contraseña), y ya estaremos preparados para comenzar a trabajar:
 
-
-
+![Comando mysql habilitado](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/comando%20hablitado.png)
 
