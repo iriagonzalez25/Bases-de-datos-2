@@ -11,7 +11,7 @@ Abrimos la terminal y entramos en MySQL con el comando `mysql -u root -p`.
 
 Primero de todo, vamos a crear la base de datos con `CREATE DATABASE Proxecto_Investigación`, y nos cambiamos a ella, con `USE Proxecto_Investigación` para empezar a trabajar sobre ella:
 
-
+>![Crear Proxecto Investigacion](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Fotos/crear%20db%20investigacion.png)
 
 <a name="e2"></a>
 ## Naves espaciales
