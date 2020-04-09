@@ -19,7 +19,7 @@ Ahora vamos a crear las tablas y las mostramos ....
 
 Una vez hayamos creado todo, podemos ver todas las tablas de nuestra base de datos utilizando `SHOW TABLES;`: 
 
->![Tablas](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Fotos/tablas%20proxecto.png)
+>![Tablas](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Fotos/tablas%20investigacion.png)
 
 **igual en vez del proceso de creación es mejor poner la descripción de cada tabla meditar esto en camita** 
 
