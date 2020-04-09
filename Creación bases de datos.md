@@ -7,21 +7,40 @@
 ## Proyecto de investigación
 Vamos a crear una base de datos llamada *Proxecto_Investigacion* a partir de este [enunciado](https://github.com/davidgchaves/first-steps-with-git-and-github-wirtz-asir1-and-dam1/tree/master/exercicios-ddl/1-proxectos-de-investigacion). 
 
-Abrimos la terminal y entramos en MySQL con el comando `mysql -u root -p`. 
+Abrimos la terminal y entramos en MySQL con el siguiente comando:
+>mysql -u root -p
 
-Primero de todo, vamos a crear la base de datos con `CREATE DATABASE Proxecto_Investigacion;`, y nos cambiamos a ella, con `USE Proxecto_Investigacion;` para empezar a trabajar sobre ella:
+Primero de todo, vamos a crear la base de datos con `CREATE DATABASE Proxecto_Investigacion;`:
 
+![Creacion db Proyecto Investigación](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Fotos/crear%20proyecto%20investigacion.png)
 
+Y nos cambiamos a ella, con `USE Proxecto_Investigacion;` para empezar a trabajar sobre ella:
 
-Ahora vamos a crear las tablas y las mostramos ....
+![Usar db Proyecto Investigación](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Fotos/usar%20proyecto%20investigacion.png)
 
-**no sé si poner el create table de todo es que me parece tontería la verdad no sé aaaaa** 
+Ya podemos empezar a crear las tablas de la base de datos siguien el enunciado del ejercicio:
 
-Una vez hayamos creado todo, podemos ver todas las tablas de nuestra base de datos utilizando `SHOW TABLES;`: 
+![Tabla Sede](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Fotos/sede.png)
+![Tabla Departamento](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Fotos/departamento.png)
+![Tabla Ubicacion](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Fotos/ubicacion.png)
+![Tabla Grupo](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Fotos/grupo.png)
+![Tabla Profesor](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Fotos/profesor.png)
 
-![Tablas]()
+Una vez tenemos creada la tabla `Profesor`, podemos añadir a `Departamento` y a `Grupo` las claves foráneas de `Profesor`, las cuales no pudimos añadir al crearlas ya que todavía no teníamos esta tabla:
 
-**igual en vez del proceso de creación es mejor poner la descripción de cada tabla meditar esto en camita** 
+![FK Departamento](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Fotos/fk%20departamento.png)
+![FK Grupo](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Fotos/fk%20grupo.png)
+
+Seguimos creamos las tablas:
+
+![Tabla Proxecto](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Fotos/proxecto.png)
+![Tabla Participa](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Fotos/participa.png)
+![Tabla Programa](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Fotos/programa.png)
+![Tabla Financia](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Fotos/financia.png)
+
+Podemos ver un resumen de las tablas de la base de datos con `SHOW TABLES;`. Con este comando obtendremos las tablas que conforman nuestra base de datos:
+
+![Tablas Proxecto Investigacion](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Fotos/tablas%20proyecto%20investigacion.png)
 
 <a name="e2"></a>
 ## Naves espaciales
@@ -42,6 +61,6 @@ Ahora vamos a crear las tablas siguiendo las indicaciones del enunciado:
 ![Tabla Raza](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Fotos/raza.png) 
 ![Tabla Habita](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Fotos/habita.png) 
 
-Ahora podemos comprobar que tenemos todas las tablas con `SHOW TABLES`:
+Comprobamos nuestras tablas con `SHOW TABLES;`:
 
 ![Tablas Naves Espaciais](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Fotos/tablas%20naves%20espaciais.png)
