@@ -6,3 +6,5 @@
 [🔸 Instalación MySQL](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Instalación%20MySQL.MD)
 
 [🔸 Creación bases de datos en MySQL](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Creación%20bases%20de%20datos.md)
+
+[🔸 Comandos para ver estructuras y datos en MySQL](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Comandos%20MySQL.md)
