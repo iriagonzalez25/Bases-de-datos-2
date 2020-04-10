@@ -18,7 +18,7 @@ Y nos cambiamos a ella, con `USE Proxecto_Investigacion;` para empezar a trabaja
 
 ![Usar db Proyecto Investigación](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Fotos/usar%20proyecto%20investigacion.png)
 
-Ya podemos empezar a crear las tablas de la base de datos siguien el enunciado del ejercicio:
+Ya podemos empezar a crear las tablas de la base de datos siguiendo el enunciado del ejercicio:
 
 ![Tabla Sede](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Fotos/sede.png)
 ![Tabla Departamento](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Fotos/departamento.png)
@@ -38,10 +38,6 @@ Seguimos creamos las tablas:
 ![Tabla Programa](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Fotos/programa.png)
 ![Tabla Financia](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Fotos/financia.png)
 
-Podemos ver un resumen de las tablas de la base de datos con `SHOW TABLES;`. Con este comando obtendremos las tablas que conforman nuestra base de datos:
-
-![Tablas Proxecto Investigacion](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Fotos/tablas%20proyecto%20investigacion.png)
-
 <a name="e2"></a>
 ## Naves espaciales 🛸
 A partir de este [enunciado](https://github.com/davidgchaves/first-steps-with-git-and-github-wirtz-asir1-and-dam1/tree/master/exercicios-ddl/2-naves-espaciais), creamos una base de datos llamada *Naves_Espaciais*. 
@@ -60,7 +56,3 @@ Ahora vamos a crear las tablas siguiendo las indicaciones del enunciado:
 ![Tabla Visita](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Fotos/visita.png) 
 ![Tabla Raza](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Fotos/raza.png) 
 ![Tabla Habita](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Fotos/habita.png) 
-
-Comprobamos nuestras tablas con `SHOW TABLES;`:
-
-![Tablas Naves Espaciais](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Fotos/tablas%20naves%20espaciais.png)
