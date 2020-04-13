@@ -1,6 +1,6 @@
 # Creación de bases de datos en MySQL
 
-- [Ejercicio 1 - Proyectos de investigación](#e1)
+- [Ejercicio 1 - Proyecto de investigación](#e1)
 - [Ejercicio 2 - Naves espaciales](#e2)
 
 <a name="e1"></a>
@@ -10,11 +10,11 @@ Vamos a crear una base de datos llamada *Proxecto_Investigacion* a partir de est
 Abrimos la terminal y entramos en MySQL con el siguiente comando:
 >mysql -u root -p
 
-Primero de todo, vamos a crear la base de datos con `CREATE DATABASE Proxecto_Investigacion;`:
+Primero de todo, creamos la base de datos con `CREATE DATABASE Proxecto_Investigacion;`:
 
-![Creacion db Proyecto Investigación](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Fotos/crear%20proyecto%20de%20investigacion.png)
+![Creación db Proyecto Investigación](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Fotos/crear%20proyecto%20de%20investigacion.png)
 
-Y nos cambiamos a ella, con `USE Proxecto_Investigacion;` para empezar a trabajar sobre ella:
+Y nos cambiamos a ella con `USE Proxecto_Investigacion;` para empezar a trabajar sobre ella:
 
 ![Usar db Proyecto Investigación](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Fotos/usar%20proyecto%20investigacion.png)
 
@@ -31,7 +31,7 @@ Una vez tenemos creada la tabla `Profesor`, podemos añadir a `Departamento` y a
 ![FK Departamento](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Fotos/fk%20departamento.png)
 ![FK Grupo](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Fotos/fk%20grupo.png)
 
-Seguimos creamos las tablas:
+Seguimos creando las tablas:
 
 ![Tabla Proxecto](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Fotos/proxecto.png)
 ![Tabla Participa](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Fotos/participa.png)
