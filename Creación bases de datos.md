@@ -42,7 +42,7 @@ Seguimos creando las tablas:
 ## Naves espaciales 🛸
 A partir de este [enunciado](https://github.com/davidgchaves/first-steps-with-git-and-github-wirtz-asir1-and-dam1/tree/master/exercicios-ddl/2-naves-espaciais), creamos una base de datos llamada *Naves_Espaciais*. 
 
-Una vez estemos en MySQL desde la terminal, lo primero que hacemos es crear la base de datos, y cambiarnos a ella para poder empezar a crear las tablas:
+Una vez estemos en MySQL desde la terminal, lo primero que hacemos es crear la base de datos y cambiarnos a ella para poder empezar a crear las tablas:
 
 ![Creación db Naves Espaciais](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Fotos/crear%20naves%20espaciais.png) 
 
