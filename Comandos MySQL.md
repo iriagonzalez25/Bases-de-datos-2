@@ -30,7 +30,7 @@ Si lo que queremos es ver la información de las tablas de la base de datos, hay
 
 ### Ver la estructura de una tabla
 
-Para ver la estructura de una tabla en concreto, usaremos `DESCRIBE nombreTabla;` o `DESC nombreTabla`. El comando `SHOW COLUMNS FROM nombreTabla;` mostraría lo mismo. 
+Para ver la estructura de una tabla en concreto, usaremos `DESCRIBE nombreTabla;` o `DESC nombreTabla;`. El comando `SHOW COLUMNS FROM nombreTabla;` mostraría lo mismo. 
 
 ![DESCRIBE](https://github.com/iriagonzalez25/Bases-de-datos-2/blob/master/Fotos/describe.png)
 
